@@ -96,6 +96,7 @@ class LUALine :
         to       = unformat_xy(P[1])
         thickness= int(P[2])
         color    = unformat_color(P[3])
+        alpha    = float(P[4])
         
         tan = (to[1]-fro[1]) / (to[0]-fro[0])
         angle = np.arctan(tan)*180/(np.pi) + \
@@ -108,23 +109,27 @@ class LUALine :
                                                     thickness,
                                                     angle=angle,
                                                     fill=True,
-                                                    color=color)) 
+                                                    color=color,
+                                                    alpha=alpha)) 
         self.connect()
 
     def create_properties(self) :
 
         fro=0
         to=0
-        bar_color="0xFFFFFF"
-        bar_thickness=10
+        color="0xFFFFFF"
+        thickness=2
+        alpha = 1
         self.properties_name = ["from",
                                 "to",
-                                "bar_thickness",
-                                "bar_color"] 
+                                "thickness",
+                                "color",
+                                "alpha"] 
         self.properties = [fro, 
                            to, 
-                           bar_thickness,
-                           bar_color]
+                           thickness,
+                           color,
+                           alpha]
           
         
     def generate(self) :

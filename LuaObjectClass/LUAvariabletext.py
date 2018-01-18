@@ -83,21 +83,22 @@ class LUAVariableText :
         fro      = unformat_xy(P[0])
         text     = P[1]
         color    = unformat_color(P[2])
-        rotation = int(P[3])
+        rotation = 360-int(P[3])
         font     = unformat_font(P[4])
         fontsize = P[5]
-        bold     = P[6]
-        italic   = P[7]
-        alpha    = float(P[8])
+#        bold     = P[6]
+#        italic   = P[7]
+#        alpha    = float(P[8])
         
         self.graph = self.ax.annotate(s = text, 
                                            xy = fro , 
                                            color = color, 
                                            fontsize = fontsize, 
                                            rotation = rotation,
-                                           weight = bold,
-                                           style = italic,
-                                           name = font,)
+                                           name = font)
+#                                           weight = bold,
+#                                           style = italic,
+#                                           alpha = alpha)
         self.connect()
         
     def create_properties(self) :
@@ -113,21 +114,21 @@ class LUAVariableText :
         self.properties_name=["from",
                               "conky_value",
                               "color",
-                              "rotation",
+                              "rotation_angle",
                               "font",
-                              "fontsize",
-                              "bold",
-                              "italic",
-                              "alpha"]
+                              "fontsize"]
+#                              "bold",
+#                              "italic",
+#                              "alpha"]
         self.properties=[fro,
                          conky_value,
                          color,
                          rotation,
                          font,
-                         fontsize,
-                         bold,
-                         italic,
-                         alpha]
+                         fontsize]
+#                         bold,
+#                         italic,
+#                         alpha]
         
     def generate(self) :
         

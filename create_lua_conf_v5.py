@@ -173,7 +173,7 @@ class ObjectPropertyPanel() :
         self.label_var=list()
         
         frame=tk.LabelFrame(frame, text="Object Property", padx=5, pady=5)
-        for i in range(10) :
+        for i in range(15) :
             subframe = tk.Frame(frame, borderwidth=0, relief=tk.GROOVE)
             self.entry_list.append(MyEntryBox(subframe))
             self.label_var.append(tk.StringVar())
@@ -185,7 +185,7 @@ class ObjectPropertyPanel() :
     def get_prop_values(self) :
         obj = self.Out.list_obj[self.Out.Obj.obj_pos]
         
-        for i in range(10) :
+        for i in range(15) :
             self.entry_list[i].delete()
             self.label_var[i].set(" ")
         for i in range(len(obj.properties)) :

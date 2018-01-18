@@ -109,7 +109,8 @@ class LUARingGraph :
         max_value          = int(P[3])
         critical_threshold = int(P[4])
         bar_color          = unformat_color(P[5])
-        bar_alpha          = P[6]
+        print(bar_color)
+        bar_alpha          = float(P[6])
         bar_thickness      = int(P[7])
         
         start_angle        = int(P[8]) 
@@ -125,7 +126,8 @@ class LUARingGraph :
                                             theta2=end_angle,
                                             linewidth = bar_thickness,
                                             color = bar_color,
-                                            picker = True))
+                                            picker = True,
+                                            alpha = bar_alpha))
 #        print(dir(self.graph))
         self.connect()
         
@@ -170,7 +172,10 @@ class LUARingGraph :
                                 "bar_alpha",
                                 "bar_thickness",
                                 "start_angle",
-                                "end_angle"]
+                                "end_angle",
+                                "background_color",
+                                "background_alpha",
+                                "background_thickness"]
         self.properties = [center,
                            radius,
                            conky_value,
@@ -180,7 +185,10 @@ class LUARingGraph :
                            bar_alpha,
                            bar_thickness,
                            start_angle,
-                           end_angle]
+                           end_angle,
+                           background_color,
+                           background_alpha,
+                           background_thickness]
         
         
     def generate(self) :

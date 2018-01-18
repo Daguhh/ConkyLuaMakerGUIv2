@@ -61,8 +61,8 @@ class LUABarGraph :
         to_y = int(y1+dy)
         self.graph.set_x(fro_x)
         self.graph.set_y(fro_y)
-        self.properties[1] = ("{}x={}, y={}{}".format('{',fro_x,fro_y,'}'))
-        self.properties[2] = ("{}x={}, y={}{}".format('{',to_x,to_y,'}'))
+        self.properties[0] = ("{}x={}, y={}{}".format('{',fro_x,fro_y,'}'))
+        self.properties[1] = ("{}x={}, y={}{}".format('{',to_x,to_y,'}'))
         self.graph.figure.canvas.draw()
 
     def on_release(self, event):
@@ -83,8 +83,8 @@ class LUABarGraph :
         
         fro =  ("{}x={}, y={}{}".format('{',x[0],y[0],'}'))
         to = ("{}x={}, y={}{}".format('{',x[1],y[1],'}'))
-        self.properties[1] = fro
-        self.properties[2] = to
+        self.properties[0] = fro
+        self.properties[1] = to
         
         self.make_graph()
         
@@ -92,10 +92,11 @@ class LUABarGraph :
     def make_graph(self) :
         P = self.properties
     
-        fro     = unformat_xy(P[1])
-        to      = unformat_xy(P[2])
-        thickness  = int(P[3])
-        color   = unformat_color(P[4])
+        fro     = unformat_xy(P[0])
+        to      = unformat_xy(P[1])
+        thickness  = int(P[10])
+        alpha   = float(P[9])
+        color   = unformat_color(P[8])
         
         tan = (to[1]-fro[1]) / (to[0]-fro[0])
         angle = np.arctan(tan)*180/(np.pi) + \
@@ -108,26 +109,47 @@ class LUABarGraph :
                                                     thickness,
                                                     angle=angle,
                                                     fill=True,
-                                                    color=color)) 
+                                                    color=color,
+                                                    alpha = alpha)) 
         self.connect()
 
     def create_properties(self) :
 
-        conky_value="'cpu cpu0'"
+        conky_value="'conky_value'"
         fro=0
         to=0
         bar_color="0xFFFFFF"
         bar_thickness=10
-        self.properties_name = ["conky_value",
-                                "from",
+        bar_alpha=1
+        max_value = 100
+        critical_threshold = 90
+        background_color="0x000000"
+        background_alpha=1
+        background_thickness = 10
+        
+        self.properties_name = ["from",
                                 "to",
-                                "bar_thickness",
-                                "bar_color"] 
-        self.properties = [conky_value,
-                           fro, 
-                           to, 
-                           bar_thickness,
-                           bar_color]
+                                "conky_value",
+                                "max_value",
+                                "critical_threshold",
+                                "background_color",
+                                "background_alpha",
+                                "background_thickness",
+                                "bar_color",
+                                "bar_alpha",
+                                "bar_thickness"]
+        
+        self.properties = [fro,
+                        to,
+                        conky_value,
+                        max_value,
+                        critical_threshold,
+                        background_color,
+                        background_alpha,
+                        background_thickness,
+                        bar_color,
+                        bar_alpha,
+                        bar_thickness]
           
         
     def generate(self) :
