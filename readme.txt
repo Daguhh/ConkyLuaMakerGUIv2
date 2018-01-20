@@ -40,7 +40,7 @@ Last update :
     - add load/save
     - add duplicate button
     - some code cleaning 
-    
+    - add an example : put in "lua_conf_save.pkl" the same folder as "create_lua_conf_v6.py" and click on "fichier", then "load" 
     
 Notes :
         I'm still learing python, the main aim of this project is for me to familiarise with python and GUI, 
