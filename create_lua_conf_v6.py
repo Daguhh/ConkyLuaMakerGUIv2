@@ -46,7 +46,7 @@ class MenuBar :
         menu1 = tk.Menu(menubar, tearoff=0)
         menu1.add_command(label="Load", command=self.load)
         menu1.add_command(label="Save", command=self.save)
-        menu1.add_command(label="Save & generate", command=self.alert)
+        menu1.add_command(label="Save & generate", command=self.save_and_generate)
         menu1.add_separator()
         menu1.add_command(label="Quit", command=self.Out.master.quit)
         menubar.add_cascade(label="Fichier", menu=menu1)
@@ -102,7 +102,7 @@ class MenuBar :
                 self.Out.Fig.nb_input=-1
         
         
-    def sava_and_generate(self) :
+    def save_and_generate(self) :
        
         fichier = open("conky_draw_config.lua", "w")
         
