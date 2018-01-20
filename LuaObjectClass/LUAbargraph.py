@@ -12,11 +12,11 @@ from LuaObjectClass.unformat_functions import unformat_xy, unformat_color
 
 class LUABarGraph :
     
-    def __init__ (self, ax, kind) :
+    def __init__ (self, ax) :
                 
 #        self.fig = figure
-        self.kind = kind
-        self.name = kind
+        self.kind = "bar_graph"
+        self.name = "bar_graph"
         self.ax = ax
         self.graph = []
         self.properties = []
@@ -25,6 +25,7 @@ class LUABarGraph :
         self.create_properties()
         self.nb_input = 2
      
+        self.press=None
         
     def connect(self):
         
@@ -79,7 +80,7 @@ class LUABarGraph :
 
       
         
-    def create_graph(self, x, y) :
+    def create_graph(self, x=[0,1], y=[0,1]) :
         
         fro =  ("{}x={}, y={}{}".format('{',x[0],y[0],'}'))
         to = ("{}x={}, y={}{}".format('{',x[1],y[1],'}'))

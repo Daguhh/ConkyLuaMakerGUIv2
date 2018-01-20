@@ -8,24 +8,24 @@ Created on Wed Jan 17 21:43:37 2018
 
 import numpy as np
 import matplotlib.patches as patches
-from LuaObjectClass.unformat_functions import unformat_xy, unformat_color, unformat_font
+from LuaObjectClass.unformat_functions import unformat_xy, unformat_color
 
-class LUAVariableText :
+class LUALine :
     
-    def __init__ (self, ax) :
-        
-        self.kind = "variable_text"
-        self.name = "variable_text"
+    def __init__ (self, ax, kind) :
+                
+#        self.fig = figure
+        self.kind = kind
+        self.name = kind
         self.ax = ax
         self.graph = []
         self.properties = []
         self.properties_name = []
-    
+   
         self.create_properties()
-        self.nb_input = 1
+        self.nb_input = 2
+     
         
-        self.press=None
-    
     def connect(self):
         
         'connect to all the events we need'
@@ -43,22 +43,26 @@ class LUAVariableText :
         contains, attrd = self.graph.contains(event)
         if not contains: return
         x0, y0 = self.graph.xy
-        self.press = x0, y0, event.xdata, event.ydata
+        (x1, y1) = unformat_xy(self.properties[2])
+        self.press = x0, y0, x1, y1, event.xdata, event.ydata
         
     def on_motion(self, event):
         'on motion we will move the rect if the mouse is over us'
         if self.press is None: return
         if event.inaxes != self.graph.axes: return
-        x0, y0, xpress, ypress = self.press
+        x0, y0, x1, y1, xpress, ypress = self.press
         dx = event.xdata - xpress
         dy = event.ydata - ypress
-        
-        x = int(x0+dx)
-        y = int(y0+dy)
-        
-        self.graph.set_x(x)
-        self.graph.set_y(y)
-        self.properties[0] = ("{}x={}, y={}{}".format('{',x,y,'}'))
+        #print('x0=%f, xpress=%f, event.xdata=%f, dx=%f, x0+dx=%f' %
+        #      (x0, xpress, event.xdata, dx, x0+dx))
+        fro_x = int(x0+dx)
+        fro_y = int(y0+dy)
+        to_x = int(x1+dy)
+        to_y = int(y1+dy)
+        self.graph.set_x(fro_x)
+        self.graph.set_y(fro_y)
+        self.properties[1] = ("{}x={}, y={}{}".format('{',fro_x,fro_y,'}'))
+        self.properties[2] = ("{}x={}, y={}{}".format('{',to_x,to_y,'}'))
         self.graph.figure.canvas.draw()
 
     def on_release(self, event):
@@ -73,64 +77,55 @@ class LUAVariableText :
         self.rect.figure.canvas.mpl_disconnect(self.cidrelease)
         self.rect.figure.canvas.mpl_disconnect(self.cidmotion)
 
-
+      
+        
     def create_graph(self, x, y) :
+        
         fro =  ("{}x={}, y={}{}".format('{',x[0],y[0],'}'))
-        self.properties[0] = fro
+        to = ("{}x={}, y={}{}".format('{',x[1],y[1],'}'))
+        self.properties[1] = fro
+        self.properties[2] = to
+        
         self.make_graph()
-  
+        
+    
     def make_graph(self) :
         P = self.properties
+    
+        fro     = unformat_xy(P[1])
+        to      = unformat_xy(P[2])
+        thickness  = int(P[3])
+        color   = unformat_color(P[4])
         
-        fro      = unformat_xy(P[0])
-        text     = P[1]
-        color    = unformat_color(P[2])
-        rotation = 360-int(P[3])
-        font     = unformat_font(P[4])
-        fontsize = P[5]
-#        bold     = P[6]
-#        italic   = P[7]
-#        alpha    = float(P[8])
+        tan = (to[1]-fro[1]) / (to[0]-fro[0])
+        angle = np.arctan(tan)*180/(np.pi) + \
+                180 * ( (to[0]-fro[0])<0 )
+                
+        width = int(np.sqrt( (to[1]-fro[1])**2 + (to[0]-fro[0])**2 ))
         
-        self.graph = self.ax.annotate(s = text, 
-                                           xy = fro , 
-                                           color = color, 
-                                           fontsize = fontsize, 
-                                           rotation = rotation,
-                                           name = font)
-#                                           weight = bold,
-#                                           style = italic,
-#                                           alpha = alpha)
+        self.graph = self.ax.add_patch(patches.Rectangle((fro[0], fro[1]),
+                                                    width,
+                                                    thickness,
+                                                    angle=angle,
+                                                    fill=True,
+                                                    color=color)) 
         self.connect()
-        
+
     def create_properties(self) :
-        conky_value = "'conky_value'"
-        fro = 0
-        color="0xFFFFFF"
-        rotation = 0
-        font = "'DejaVu Sans'"
-        fontsize = 8
-        bold = "normal"
-        italic = "normal"
-        alpha = 1
-        self.properties_name=["from",
-                              "conky_value",
-                              "color",
-                              "rotation_angle",
-                              "font",
-                              "fontsize"]
-#                              "bold",
-#                              "italic",
-#                              "alpha"]
-        self.properties=[fro,
-                         conky_value,
-                         color,
-                         rotation,
-                         font,
-                         fontsize]
-#                         bold,
-#                         italic,
-#                         alpha]
+
+        fro=0
+        to=0
+        bar_color="0xFFFFFF"
+        bar_thickness=10
+        self.properties_name = ["from",
+                                "to",
+                                "bar_thickness",
+                                "bar_color"] 
+        self.properties = [fro, 
+                           to, 
+                           bar_thickness,
+                           bar_color]
+          
         
     def generate(self) :
         
@@ -139,3 +134,4 @@ class LUAVariableText :
             Lua_conf += ( '{} = {}, \n'.format(self.properties_name[i], self.properties[i] ) )
         Lua_conf += ('{}\n'.format('},'))
         return Lua_conf
+

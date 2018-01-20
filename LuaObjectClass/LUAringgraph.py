@@ -13,10 +13,10 @@ from LuaObjectClass.unformat_functions import unformat_xy, unformat_color
 
 class LUARingGraph :
     
-    def __init__ (self, ax, kind) :
+    def __init__ (self, ax) :
         
-        self.kind = kind
-        self.name = kind
+        self.kind = "ring_graph"
+        self.name = "ring_graph"
         self.ax = ax
         self.graph = []
         self.properties = []
@@ -25,6 +25,7 @@ class LUARingGraph :
         self.create_properties()
         self.nb_input = 2
         
+        self.press=None
     
     def connect(self):
         
@@ -91,7 +92,7 @@ class LUARingGraph :
         self.rect.figure.canvas.mpl_disconnect(self.cidmotion)
         
         
-    def create_graph(self, x, y) :
+    def create_graph(self, x=[0,1], y=[0,1]) :
         
         center = ("{}x={}, y={}{}".format('{',x[0],y[0],'}'))
         radius = int(np.sqrt((x[1]-x[0])**2+(y[1]-y[0])**2))

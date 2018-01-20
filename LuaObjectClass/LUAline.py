@@ -12,11 +12,11 @@ from LuaObjectClass.unformat_functions import unformat_xy, unformat_color
 
 class LUALine :
     
-    def __init__ (self, ax, kind) :
+    def __init__ (self, ax) :
                 
 #        self.fig = figure
-        self.kind = kind
-        self.name = kind
+        self.kind = "line"
+        self.name = "line"
         self.ax = ax
         self.graph = []
         self.properties = []
@@ -25,6 +25,7 @@ class LUALine :
         self.create_properties()
         self.nb_input = 2
      
+        self.press=None
         
     def connect(self):
         

@@ -12,10 +12,10 @@ from LuaObjectClass.unformat_functions import unformat_xy, unformat_color, unfor
 
 class LUAStaticText :
     
-    def __init__ (self, ax, kind) :
+    def __init__ (self, ax) :
         
-        self.kind = kind
-        self.name = kind
+        self.kind = "static_text"
+        self.name = "static_text"
         self.ax = ax
         self.graph = []
         self.properties = []
@@ -23,6 +23,8 @@ class LUAStaticText :
     
         self.create_properties()
         self.nb_input = 1
+        
+        self.press=None
     
     def connect(self):
         
