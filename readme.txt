@@ -13,7 +13,7 @@ preview : "pythonGUI_conkypreview.png" that show the GUI
 
 Usage :
     Run script :
-        just put "create_lua_conf_v5.py" and "LuaObjectClass" in the same folder and run "create_lua_conf_v5.py"
+        just put "create_lua_conf_v5.py" and "LuaObjectClass" in the same folder and run "create_lua_conf_v6.py"
         
     Create new object :
         - just click on objects of left panel to create a new LUA objects
@@ -22,17 +22,26 @@ Usage :
         
     Select object :
         in the "object" left panel, select an item in list you can then
-            - delete it or 
+            - delete it 
+            - duplicate it
             - rename buy filling entrybox and click on rename
 
     Edit property :
         - you can drag figure to a new position
-        - you can edit manually and click on "valide"
+        - you can edit manually and click on "valide" (please keep all ' , # and } and whatever...
 
     Create Lua configuration file :
-        - just hit "Generate LUA conf" button to create the conf file in python script repertory
+        - Menu : save : save your work in "Lua_conf_save.pkl"
+                 load : load "Lua_conf_save.pkl"
+                 save and generate : save your work and generate the LUA configuration file in "conky_draw_config.lua"
 
 
+Last update :
+    - add load/save
+    - add duplicate button
+    - some code cleaning 
+    
+    
 Notes :
         I'm still learing python, the main aim of this project is for me to familiarise with python and GUI, 
         so, code looks quite ugly, 
