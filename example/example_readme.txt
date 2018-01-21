@@ -1,2 +1,3 @@
 this example can be loaded in the programm and be modify
-just put it in the same folder as the script
+just put the ".pkl" file in the same folder as the script
+".lua" file is the config file that is generated
