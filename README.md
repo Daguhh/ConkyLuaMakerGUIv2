@@ -5,4 +5,4 @@ A python tkinter GUI to create a Lua conf file for fisadev/conky-draw
 
 check readme.txt
 #
-![Alt text](https://github.com/Daguhh/ConkyLuaMakerGUIv2/blob/master/pythonGUI_conkypreview.png?raw=true "Optional Title")
+![Alt text](https://github.com/Daguhh/ConkyLuaMakerGUIv2/blob/master/GUI_preview.png?raw=true "Optional Title")
