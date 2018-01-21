@@ -21,14 +21,14 @@ Usage :
         (2 click for ring and bar, for respectively center/radius and start/end)
         
     Select object :
-        in the "object" left panel, select an item in list you can then
+        in the "object" right panel, select an item in list you can then
             - delete it 
             - duplicate it
             - rename buy filling entrybox and click on rename
 
     Edit property :
         - you can drag figure to a new position
-        - you can edit manually and click on "valide" (please keep all ' , # and } and whatever...
+        - you can edit manually and click on "valide" (please keep all ' , # and } and others...
 
     Create Lua configuration file :
         - Menu : save : save your work in "Lua_conf_save.pkl"
@@ -43,7 +43,7 @@ Last update :
     - add an example : put in "lua_conf_save.pkl" the same folder as "create_lua_conf_v6.py" and click on "fichier", then "load" 
     
 Notes :
-        I'm still learing python, the main aim of this project is for me to familiarise with python and GUI, 
+        I'm still learning python, the main aim of this project is for me to familiarise with python and GUI, 
         so, code looks quite ugly, 
         You have to not click everywhere because script don't handle exception and can be broken easily,
         so you have to keep all ' and { or 0x of the properties if you don't want to go back to the start
