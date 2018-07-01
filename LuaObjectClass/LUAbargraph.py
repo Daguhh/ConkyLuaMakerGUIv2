@@ -8,28 +8,21 @@ Created on Wed Jan 17 21:43:37 2018
 
 import numpy as np
 import matplotlib.patches as patches
-from LuaObjectClass.unformat_functions import unformat_xy, unformat_color
+from .classproperties import Properties
 
-class LUABarGraph :
-    
-    def __init__ (self, ax) :
-                
-#        self.fig = figure
-        self.kind = "bar_graph"
-        self.name = "bar_graph"
-        self.ax = ax
-        self.graph = []
-        self.properties = []
-        self.properties_name = []
-   
-        self.create_properties()
-        self.nb_input = 2
-     
+
+class MovableObject() :
+    def __init__(self) :
         self.press=None
+        self.key_pressed = None
         
     def connect(self):
-        
+
         'connect to all the events we need'
+        self.cidkeypress = self.graph.figure.canvas.mpl_connect(
+                'key_press_event', self.on_key_press)
+        self.cidkeyrelease = self.graph.figure.canvas.mpl_connect(
+                'key_release_event', self.on_key_release)
         self.cidpress = self.graph.figure.canvas.mpl_connect(
             'button_press_event', self.on_press)
         self.cidrelease = self.graph.figure.canvas.mpl_connect(
@@ -44,119 +37,142 @@ class LUABarGraph :
         contains, attrd = self.graph.contains(event)
         if not contains: return
         x0, y0 = self.graph.xy
-        (x1, y1) = unformat_xy(self.properties[2])
-        self.press = x0, y0, x1, y1, event.xdata, event.ydata
+        self.press = x0, y0, event.xdata, event.ydata
         
     def on_motion(self, event):
         'on motion we will move the rect if the mouse is over us'
         if self.press is None: return
         if event.inaxes != self.graph.axes: return
-        x0, y0, x1, y1, xpress, ypress = self.press
+        x0, y0, xpress, ypress = self.press
         dx = event.xdata - xpress
         dy = event.ydata - ypress
-        #print('x0=%f, xpress=%f, event.xdata=%f, dx=%f, x0+dx=%f' %
-        #      (x0, xpress, event.xdata, dx, x0+dx))
-        fro_x = int(x0+dx)
-        fro_y = int(y0+dy)
-        to_x = int(x1+dy)
-        to_y = int(y1+dy)
-        self.graph.set_x(fro_x)
-        self.graph.set_y(fro_y)
-        self.properties[0] = ("{}x={}, y={}{}".format('{',fro_x,fro_y,'}'))
-        self.properties[1] = ("{}x={}, y={}{}".format('{',to_x,to_y,'}'))
+        x = int(x0+dx)
+        y = int(y0+dy)
+        
+        if self.key_pressed == "shift" : # move
+            new_pos = ("{}x={}, y={}{}".format('{',x,y,'}'))
+            setattr(self.props, "fro", new_pos)
+            
+            self.graph.set_x(x)
+            self.graph.set_y(y)
+            
+        elif self.key_pressed == "control" : # resize
+            print("control")
+            new_size = abs(int(-y+y0))
+            setattr(self.props, "bar_thickness", new_size)
+            self.graph.set_height(new_size)
+            
         self.graph.figure.canvas.draw()
+
+    def on_key_press(self, event) :
+        self.key_pressed = event.key
+        
+    def on_key_release(self, event) :
+        self.key_pressed = None
 
     def on_release(self, event):
         'on release we reset the press data'
         self.press = None
         self.graph.figure.canvas.draw()
-        
-        
+
     def disconnect(self):
         'disconnect all the stored connection ids'
         self.rect.figure.canvas.mpl_disconnect(self.cidpress)
         self.rect.figure.canvas.mpl_disconnect(self.cidrelease)
         self.rect.figure.canvas.mpl_disconnect(self.cidmotion)
+        self.rect.figure.canvas.mpl_disconnect(self.cidkeyrelease)
+        self.rect.figure.canvas.mpl_disconnect(self.cidkeypress)
+        
+        
+class LUABarGraph(MovableObject) :
 
-      
-        
+    def __init__ (self, ax) :
+        self.ax = ax
+        self.kind = "bar_graph"
+        self.name = "bar_graph"
+        self.graph = []
+
+        self.nb_input = 2
+
+        dct = {"fro" : "{x=0, y=0}",
+               "to" : "{x=0, y=0}",
+               "conky_value" : "'cpu cpu0'",
+               "max_value" : 100,
+               "critical_threshold" : 90,
+               "background_color" : "0x000000",
+               "background_alpha" : 1,
+               "background_thickness": 8,
+               "bar_color": "0x000000",
+               "bar_alpha" : 1,
+               "bar_thickness": 8,
+               "change_color_on_critical" : 0,
+               "change_alpha_on_critical" : 0,
+               "change_thickness_on_critical" : 0,
+               "background_color_critical" : "0x000000",
+               "background_alpha_critical" : 1,
+               "background_thickness_critical" : 10,
+               "bar_color_critical" : "0x000000",
+               "bar_alpha_critical" : 1,
+               "bar_thickness_critical" : 10,
+               "graduated" : "false",
+               "number_graduation" : 10,
+               "space_between_graduation" : 1,
+               }
+
+        MovableObject.__init__(self)
+        self.props = Properties(dct)
+
+        self.properties_name = []
+        for attribute, value in self.props.__dict__.items() :
+            self.properties_name.append(attribute)
+
+
+    def _set_properties(self, props) :
+        for i, name in enumerate(self.properties_name) :
+            print(name)
+            setattr(self.props, name, props[i])
+
+    def _get_properties(self) :
+        props = []
+        for name in (self.properties_name) :
+            props.append(self.props.uformat(name))
+        return props
+
+    properties = property(_get_properties, _set_properties)
+
+
     def create_graph(self, x=[0,1], y=[0,1]) :
-        
-        fro =  ("{}x={}, y={}{}".format('{',x[0],y[0],'}'))
-        to = ("{}x={}, y={}{}".format('{',x[1],y[1],'}'))
-        self.properties[0] = fro
-        self.properties[1] = to
-        
+        self.props.fro = ("{}x={}, y={}{}".format('{',x[0],y[0],'}'))
+        self.props.to  = ("{}x={}, y={}{}".format('{',x[1],y[1],'}'))
         self.make_graph()
-        
-    
+
     def make_graph(self) :
-        P = self.properties
-    
-        fro     = unformat_xy(P[0])
-        to      = unformat_xy(P[1])
-        thickness  = int(P[10])
-        alpha   = float(P[9])
-        color   = unformat_color(P[8])
-        
-        tan = (to[1]-fro[1]) / (to[0]-fro[0])
+
+        tan = (self.props.to[1]-self.props.fro[1]) / \
+              (self.props.to[0]-self.props.fro[0])
         angle = np.arctan(tan)*180/(np.pi) + \
-                180 * ( (to[0]-fro[0])<0 )
-                
-        width = int(np.sqrt( (to[1]-fro[1])**2 + (to[0]-fro[0])**2 ))
-        
-        self.graph = self.ax.add_patch(patches.Rectangle((fro[0], fro[1]),
-                                                    width,
-                                                    thickness,
-                                                    angle=angle,
-                                                    fill=True,
-                                                    color=color,
-                                                    alpha = alpha)) 
+                180 * ( (self.props.to[0]-self.props.fro[0])<0 )
+
+        width = int(np.sqrt( (self.props.to[1]-self.props.fro[1])**2 + \
+                             (self.props.to[0]-self.props.fro[0])**2 ) )
+
+        self.graph = self.ax.add_patch(
+            patches.Rectangle( xy     = self.props.fro,
+                               width  = width,
+                               height = self.props.bar_thickness,
+                               angle  = angle,
+                               fill   = True,
+                               color  = self.props.bar_color,
+                               alpha  = self.props.bar_alpha))
         self.connect()
 
-    def create_properties(self) :
-
-        conky_value="'conky_value'"
-        fro=0
-        to=0
-        bar_color="0xFFFFFF"
-        bar_thickness=10
-        bar_alpha=1
-        max_value = 100
-        critical_threshold = 90
-        background_color="0x000000"
-        background_alpha=1
-        background_thickness = 10
-        
-        self.properties_name = ["from",
-                                "to",
-                                "conky_value",
-                                "max_value",
-                                "critical_threshold",
-                                "background_color",
-                                "background_alpha",
-                                "background_thickness",
-                                "bar_color",
-                                "bar_alpha",
-                                "bar_thickness"]
-        
-        self.properties = [fro,
-                        to,
-                        conky_value,
-                        max_value,
-                        critical_threshold,
-                        background_color,
-                        background_alpha,
-                        background_thickness,
-                        bar_color,
-                        bar_alpha,
-                        bar_thickness]
-          
-        
     def generate(self) :
-        
+
         Lua_conf= ('-- {}\n{}\nkind = \'{}\',\n'.format(self.name,'{',self.kind))
         for i in range(len(self.properties_name)) :
+            if self.properties_name[i] == "fro" :
+                Lua_conf += ( '{}m = {}, \n'.format(self.properties_name[i], self.properties[i] ) )
+                continue
             Lua_conf += ( '{} = {}, \n'.format(self.properties_name[i], self.properties[i] ) )
         Lua_conf += ('{}\n'.format('},'))
         return Lua_conf

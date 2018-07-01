@@ -6,7 +6,11 @@ Created on Wed Jan 17 21:43:37 2018
 @author: david
 """
 
+import numpy as np
+import matplotlib.patches as patches
 from .classproperties import Properties
+
+
 
 class MovableObject() :
     def __init__(self) :
@@ -27,15 +31,22 @@ class MovableObject() :
         self.cidmotion = self.graph.figure.canvas.mpl_connect(
             'motion_notify_event', self.on_motion)
         
+
     def on_press(self, event):
+        print("==========================================================")
         'on button press we will see if the mouse is over us and store some data'
         if event.inaxes != self.graph.axes: return
-        
+
         contains, attrd = self.graph.contains(event)
         if not contains: return
-        x0, y0 = self.graph.xy
+
+        tmp = getattr(self.graph, "center")
+        x0=tmp[0]
+        y0=tmp[0]
+        if self.test_press(event) : return
+
         self.press = x0, y0, event.xdata, event.ydata
-        
+
     def on_motion(self, event):
         'on motion we will move the rect if the mouse is over us'
         if self.press is None: return
@@ -43,24 +54,27 @@ class MovableObject() :
         x0, y0, xpress, ypress = self.press
         dx = event.xdata - xpress
         dy = event.ydata - ypress
+
         x = int(x0+dx)
         y = int(y0+dy)
         
         if self.key_pressed == "shift" : # move
             new_pos = ("{}x={}, y={}{}".format('{',x,y,'}'))
-            setattr(self.props, "fro", new_pos)
+            setattr(self.props, "center", new_pos)
             
-            self.graph.set_x(x)
-            self.graph.set_y(y)
+            new_pos = (x, y)
+            setattr(self.graph, "center", new_pos)
             
         elif self.key_pressed == "control" : # resize
-            print("control")
-            new_size = int((-y+y0))
-            setattr(self.props, "fontsize", new_size)
-            self.graph.set_fontsize(new_size)
+            new_size = 2*np.sqrt((x-x0)**2+(y-y0)**2)
+            setattr(self.props, "width", new_size)
+            setattr(self.props, "height", new_size)
+            setattr(self.graph,  "width" , new_size)
+            setattr(self.graph,  "height" , new_size)
             
         self.graph.figure.canvas.draw()
 
+            
     def on_key_press(self, event) :
         self.key_pressed = event.key
         
@@ -80,27 +94,65 @@ class MovableObject() :
         self.rect.figure.canvas.mpl_disconnect(self.cidkeyrelease)
         self.rect.figure.canvas.mpl_disconnect(self.cidkeypress)
         
-class LUAStaticText(MovableObject) :
+    def test_press(self, event) :
+        test = 0
+
+        x0 = self.props.center[0]
+        y0 = self.props.center[1]
+        # remove circle interior picking
+        event_radius = np.sqrt((event.xdata-x0)**2 + (event.ydata-y0)**2)
+        arc_radius = self.props.radius
+        arc_thickness = self.props.bar_thickness
+        if arc_radius - arc_thickness > event_radius : test = 1
+
+        # remove out angle picking
+        tan = (event.ydata-y0) / (event.xdata-x0)
+        event_angle = np.arctan(tan)*180/(np.pi) + \
+                180 * ( (event.xdata-x0)<0 )
+        min_angle = self.props.start_angle
+        max_angle = self.props.end_angle
+        if  event_angle<min_angle and event_angle>max_angle : test = 1
+
+        return test
+
+
+
+class LUAElipsGraph(MovableObject) :
 
     def __init__ (self, ax) :
         self.ax = ax
-        self.kind = "static_text"
-        self.name = "static_text"
+        self.kind = "ellipse_graph"
+        self.name = "ellipse_graph"
         self.graph = []
 
-        self.nb_input = 1
+        self.nb_input = 2
 
         dct = {
-                "fro" : "{x=0, y=0}",
-               "text": "'default'",
-               "color" : "0x000000",
-               "fontsize" : 12,
-               "rotation" : 0,
-               "font" : "'default font'",
-#               "bold" : 0,
-#               "italic" : 0,
-               "alpha" : 1,
-               }
+        "center" : "{x=1, y=1}",
+        "radius" : 1,
+        "conky_value" : "'cpu cpu0'",
+        "width" : 20,
+        "height" : 20,
+        "max_value" : 100,
+        "critical_threshold" : 90,
+        "bar_color" : "0x000000",
+        "bar_alpha" : 1,
+        "bar_thickness" : 8,
+        "start_angle" : 0,
+        "end_angle" : 360,
+        "background_color" : "0xFFFFFF",
+        "background_alpha" : 1,
+        "background_thickness" : 8,
+        "change_color_on_critical" : 0,
+        "change_alpha_on_critical" : 0,
+        "change_thickness_on_critical" : 0,
+        "background_color_critical" : "0x000000",
+        "background_alpha_critical" : 1,
+        "background_thickness_critical" :8,
+        "bar_color_critical" : "0x000000",
+        "bar_alpha_critical" : 1,
+        "bar_thickness_critical" : 8
+        }
 
         MovableObject.__init__(self)
         self.props = Properties(dct)
@@ -112,8 +164,8 @@ class LUAStaticText(MovableObject) :
 
     def _set_properties(self, props) :
         for i, name in enumerate(self.properties_name) :
-            print(name)
             setattr(self.props, name, props[i])
+
 
     def _get_properties(self) :
         props = []
@@ -125,33 +177,37 @@ class LUAStaticText(MovableObject) :
 
 
     def create_graph(self, x=[0,1], y=[0,1]) :
-        self.props.fro = ("{}x={}, y={}{}".format('{',x[0],y[0],'}'))
+
+        self.props.center = ("{}x={}, y={}{}".format("{",x[0],y[0],"}"))
+        self.props.width = 2*int(np.sqrt((x[1]-x[0])**2+(y[1]-y[0])**2))
+        self.props.height = self.props.width
+#        self.props.bar_thickness = default.bar_thickness
         self.make_graph()
+
 
     def make_graph(self) :
 
-        self.graph = self.ax.annotate(s        = self.props.text,
-                                      xy       = self.props.fro,
-                                      color    = self.props.color,
-                                      fontsize = self.props.fontsize,
-                                      rotation = self.props.rotation,
-                                      name     = self.props.font)
-        #                                           weight = bold,
-        #                                           style = italic,
-        #                                           alpha = alpha)
+        if self.props.start_angle > self.props.end_angle:
+            self.props.start_angle, self.props.end_angle = self.props.end_angle, self.props.start_angle
+
+        self.graph = self.ax.add_patch(
+            patches.Arc(xy        = self.props.center,
+                        width     = self.props.width,
+                        height    = self.props.height,
+                        angle     = 0,
+                        theta1    = self.props.start_angle,
+                        theta2    = self.props.end_angle,
+                        linewidth = self.props.bar_thickness,
+                        color     = self.props.bar_color,
+                        picker    = True,
+                        alpha     = self.props.bar_alpha))
         self.connect()
+
 
     def generate(self) :
 
         Lua_conf= ('-- {}\n{}\nkind = \'{}\',\n'.format(self.name,'{',self.kind))
         for i in range(len(self.properties_name)) :
-            if self.properties_name[i] == "fro" :
-                Lua_conf += ( '{}m = {}, \n'.format(self.properties_name[i], self.properties[i] ) )
-                continue
-            if self.properties_name[i] == "bold" or self.properties_name[i] == "italic" :
-                if self.properties[i] == 1:
-                    Lua_conf += ( '{}'.format(self.properties_name[i])) 
-                    continue
             Lua_conf += ( '{} = {}, \n'.format(self.properties_name[i], self.properties[i] ) )
         Lua_conf += ('{}\n'.format('},'))
         return Lua_conf
