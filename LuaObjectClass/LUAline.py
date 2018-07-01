@@ -96,9 +96,9 @@ class LUALine(MovableObject) :
 
         dct = {"fro" : "{x=0, y=0}",
                "to" : "{x=0, y=0}",
-               "bar_color": "0x000000",
-               "bar_alpha" : 1,
-               "bar_thickness": 8,
+               "color": "0x000000",
+               "alpha" : 1,
+               "thickness": 8,
                "graduated" : 1,
                "number_graduation" : 10,
                "space_between_graduation" : 1,
