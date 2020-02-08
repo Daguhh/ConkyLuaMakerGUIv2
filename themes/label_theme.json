@@ -1,0 +1,37 @@
+{
+     "label_test":
+     {
+         "colours":
+         {
+             "dark_bg": "#25292e",
+             "normal_text": "#c5cbd8",
+             "text_shadow": "#505050"
+         },
+         "font":
+         {
+             "name": "notosans",
+             "size": "12",
+             "bold": "0",
+             "italic": "0",
+             "regular_path": "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf"
+         },
+         "misc":
+         {
+             "text_shadow": "1",
+             "text_shadow_size": "1",
+             "text_shadow_offset": "0,0"
+         }
+     },
+
+     "button_theme":
+     {
+         "font":
+         {
+             "name": "notosans",
+             "size": "12",
+             "bold": "0",
+             "italic": "1",
+             "regular_path": "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf"
+         }
+     }
+ }
