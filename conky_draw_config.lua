@@ -7,8 +7,8 @@ radius = 150,
 conky_value = 'cpu cpu1',
 max_value = 100,
 critical_threshold = 90,
-bar_color = '0x555555',
-bar_alpha = 1,
+bar_color = '0x5ff555',
+bar_alpha = 1.0,
 bar_thickness = 9,
 start_angle = 360,
 end_angle = 240,
@@ -16,7 +16,7 @@ background_color = '0x000000',
 background_alpha = 0.5,
 background_thickness = 9,
 },
--- cpu2
+--  cpu2
 {
 kind = 'ring_graph',
 center = {x=200, y=200},
@@ -24,8 +24,8 @@ radius = 140,
 conky_value = 'cpu cpu2',
 max_value = 100,
 critical_threshold = 90,
-bar_color = '0x555555',
-bar_alpha = 1,
+bar_color = '0xff0055',
+bar_alpha = 1.0,
 bar_thickness = 9,
 start_angle = 360,
 end_angle = 240,
@@ -33,7 +33,7 @@ background_color = '0x000000',
 background_alpha = 0.5,
 background_thickness = 9,
 },
--- cpu3
+--  cpu3
 {
 kind = 'ring_graph',
 center = {x=200, y=200},
@@ -41,8 +41,8 @@ radius = 130,
 conky_value = 'cpu cpu3',
 max_value = 100,
 critical_threshold = 90,
-bar_color = '0x555555',
-bar_alpha = 1,
+bar_color = '0x5555ff',
+bar_alpha = 1.0,
 bar_thickness = 9,
 start_angle = 360,
 end_angle = 240,
@@ -50,7 +50,7 @@ background_color = '0x000000',
 background_alpha = 0.5,
 background_thickness = 9,
 },
--- cpu4
+--  cpu4
 {
 kind = 'ring_graph',
 center = {x=200, y=200},
@@ -58,8 +58,8 @@ radius = 120,
 conky_value = 'cpu cpu4',
 max_value = 100,
 critical_threshold = 90,
-bar_color = '0x555555',
-bar_alpha = 1,
+bar_color = '0xf5555f',
+bar_alpha = 1.0,
 bar_thickness = 9,
 start_angle = 360,
 end_angle = 240,
@@ -67,7 +67,7 @@ background_color = '0x000000',
 background_alpha = 0.5,
 background_thickness = 9,
 },
--- home
+--  home
 {
 kind = 'ring_graph',
 center = {x=200, y=200},
@@ -76,7 +76,7 @@ conky_value = 'fs_used_perc /home/',
 max_value = 100,
 critical_threshold = 90,
 bar_color = '0x446044',
-bar_alpha = 1,
+bar_alpha = 1.0,
 bar_thickness = 19,
 start_angle = 120,
 end_angle = 240,
@@ -84,7 +84,7 @@ background_color = '0x000000',
 background_alpha = 0.5,
 background_thickness = 19,
 },
--- racine
+--  racine
 {
 kind = 'ring_graph',
 center = {x=200, y=200},
@@ -93,7 +93,7 @@ conky_value = 'fs_used_perc /',
 max_value = 100,
 critical_threshold = 90,
 bar_color = '0x448844',
-bar_alpha = 1,
+bar_alpha = 1.0,
 bar_thickness = 19,
 start_angle = 120,
 end_angle = 240,
@@ -101,7 +101,7 @@ background_color = '0x000000',
 background_alpha = 0.5,
 background_thickness = 19,
 },
--- mem
+--  mem
 {
 kind = 'ring_graph',
 center = {x=200, y=200},
@@ -110,7 +110,7 @@ conky_value = 'memperc',
 max_value = 100,
 critical_threshold = 90,
 bar_color = '0x555577',
-bar_alpha = 1,
+bar_alpha = 1.0,
 bar_thickness = 19,
 start_angle = 0,
 end_angle = 120,
@@ -118,7 +118,7 @@ background_color = '0x000000',
 background_alpha = 0.5,
 background_thickness = 19,
 },
--- swap
+--  swap
 {
 kind = 'ring_graph',
 center = {x=200, y=200},
@@ -127,7 +127,7 @@ conky_value = 'swapperc',
 max_value = 100,
 critical_threshold = 90,
 bar_color = '0x444466',
-bar_alpha = 1,
+bar_alpha = 1.0,
 bar_thickness = 19,
 start_angle = 0,
 end_angle = 120,
@@ -135,171 +135,171 @@ background_color = '0x000000',
 background_alpha = 0.5,
 background_thickness = 19,
 },
--- separateur file
+--  separateur file
 {
 kind = 'line',
 from = {x=161, y=132},
 to = {x=87, y=1},
 thickness = 2,
-color = '0xFFFFFF',
-alpha = 1,
+color = '0xffffff',
+alpha = 1.0,
 },
--- separateur mem
+--  separateur mem
 {
 kind = 'line',
 from = {x=165, y=263},
 to = {x=90, y=393},
 thickness = 2,
-color = '0xFFFFFF',
-alpha = 1,
+color = '0xffffff',
+alpha = 1.0,
 },
--- separateur
+--  separateur
 {
 kind = 'line',
 from = {x=277, y=200},
 to = {x=393, y=200},
 thickness = 2,
-color = '0xFFFFFF',
-alpha = 1,
+color = '0xffffff',
+alpha = 1.0,
 },
--- CPU text
+--  CPU text
 {
 kind = 'static_text',
 from = {x=358, y=195},
 text = 'CPU',
-color = '0xFFFFFF',
+color = '0xffffff',
 rotation_angle = 0,
 font = 'DejaVu Sans',
 font_size = 16,
 },
--- file sys
+--  file sys
 {
 kind = 'static_text',
-from = {x=70, y=21},
+from = {x=73, y=12},
 text = 'File sys',
-color = '0xFFFFFF',
+color = '0xffffff',
 rotation_angle = 60,
 font = 'DejaVu Sans',
 font_size = 16,
 },
--- memory
+--  memory
 {
 kind = 'static_text',
-from = {x=94, y=346},
+from = {x=91, y=390},
 text = 'Memory',
-color = '0xFFFFFF',
+color = '0xffffff',
 rotation_angle = 300,
 font = 'DejaVu Sans',
 font_size = 16,
 },
--- line
+--  line
 {
 kind = 'line',
 from = {x=235, y=256},
 to = {x=276, y=256},
 thickness = 2,
-color = '0xFFFFFF',
-alpha = 1,
+color = '0xffffff',
+alpha = 1.0,
 },
--- line
+--  line
 {
 kind = 'line',
 from = {x=278, y=257},
 to = {x=293, y=276},
 thickness = 2,
-color = '0xFFFFFF',
-alpha = 1,
+color = '0xffffff',
+alpha = 1.0,
 },
--- static_text
+--  static_text
 {
 kind = 'static_text',
 from = {x=239, y=252},
 text = 'RAM',
-color = '0xFFFFFF',
+color = '0xffffff',
 rotation_angle = 0,
 font = 'DejaVu Sans',
 font_size = 12,
 },
--- line
+--  line
 {
 kind = 'line',
 from = {x=256, y=339},
 to = {x=280, y=359},
 thickness = 2,
-color = '0xFFFFFF',
-alpha = 1,
+color = '0xffffff',
+alpha = 1.0,
 },
--- line
+--  line
 {
 kind = 'line',
 from = {x=278, y=359},
 to = {x=321, y=359},
 thickness = 2,
-color = '0xFFFFFF',
-alpha = 1,
+color = '0xffffff',
+alpha = 1.0,
 },
--- static_text
+--  static_text
 {
 kind = 'static_text',
 from = {x=283, y=356},
 text = 'Swap',
-color = '0xFFFFFF',
+color = '0xffffff',
 rotation_angle = 0,
 font = 'DejaVu Sans',
 font_size = 12,
 },
--- line
+--  line
 {
 kind = 'line',
 from = {x=85, y=225},
 to = {x=112, y=203},
 thickness = 2,
-color = '0xFFFFFF',
-alpha = 1,
+color = '0xffffff',
+alpha = 1.0,
 },
--- line
+--  line
 {
 kind = 'line',
 from = {x=112, y=203},
 to = {x=159, y=203},
 thickness = 2,
-color = '0xFFFFFF',
-alpha = 1,
+color = '0xffffff',
+alpha = 1.0,
 },
--- static_text
+--  static_text
 {
 kind = 'static_text',
 from = {x=120, y=201},
 text = 'Home',
-color = '0xFFFFFF',
+color = '0xffffff',
 rotation_angle = 0,
 font = 'DejaVu Sans',
 font_size = 12,
 },
--- line
+--  line
 {
 kind = 'line',
 from = {x=52, y=214},
 to = {x=30, y=235},
 thickness = 2,
-color = '0xFFFFFF',
-alpha = 1,
+color = '0xffffff',
+alpha = 1.0,
 },
--- line
+--  line
 {
 kind = 'line',
 from = {x=30, y=235},
 to = {x=3, y=235},
 thickness = 2,
-color = '0xFFFFFF',
-alpha = 1,
+color = '0xffffff',
+alpha = 1.0,
 },
--- static_text
+--  static_text
 {
 kind = 'static_text',
 from = {x=9, y=228},
 text = '/',
-color = '0xFFFFFF',
+color = '0xffffff',
 rotation_angle = 0,
 font = 'DejaVu Sans',
 font_size = 12,
