@@ -223,7 +223,9 @@ class MenuButtons :
         gen = pygame_gui.elements.UIButton(
             relative_rect=MB_GEN_RECT,
             text="Generate luaconf",
-            manager=self.manager)
+            manager=self.manager,
+            tool_tip_text = "Generate conky_draw_config.lua"
+            "this file can be next reloaded with the 'load button'")
 
         save = pygame_gui.elements.UIButton(
             relative_rect=MB_SAVE_RECT,
@@ -233,12 +235,14 @@ class MenuButtons :
         load = pygame_gui.elements.UIButton(
             relative_rect=MB_LOAD_RECT,
             text="Load config",
-            manager=self.manager)
+            manager=self.manager,
+            tool_tip_text = "load the 'conky_draw_config.lua' file")
 
         aide = pygame_gui.elements.UIButton(
             relative_rect=MB_HELP_RECT,
-            text="",#text="?",
-            manager=self.manager)
+            text="?",
+            manager=self.manager,
+            tool_tip_text = 'display help')
 
         self.buttons = [menu, gen, save, load, aide]
 
@@ -308,4 +312,29 @@ class MenuButtons :
         pass
 
 
+class MousePosPanel:
+    def __init__(self, manager):
+
+        rect = MP_RECT
+        self.label=pygame_gui.elements.UILabel(
+                relative_rect = rect,
+                text="mouse_pos",
+                manager = manager)
+
+#        rect = pygame.Rect((380,590),(120,25))
+#        self.is_on=pygame_gui.elements.UILabel(
+#                relative_rect = rect,
+#                text="grid size",
+#                manager = manager)
+#
+#        rect = pygame.Rect((500,590),(120,25))
+#        self.grid_step_entry = pygame_gui.elements.UITextEntryLine(
+#                relative_rect = pygame.Rect(rect),
+#                manager = manager)
+#
+    def update(self,mouse_pos) :
+        self.label.set_text('mouse position = {}'.format(mouse_pos))
+
+    def show_is_on(self,on) :
+        self.is_on.set_text(on)
 

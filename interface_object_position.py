@@ -9,7 +9,7 @@ import pygame
 
 # Interface
 
-INTERFACE_SIZE = (1200,650)
+INTERFACE_SIZE = (1000,650)
 
 # ChoiceButtonPanel
 
@@ -28,9 +28,10 @@ OP_PANEL_POS = (x0,120)
 OP_PANEL_BACKGROUND_COLOR = (150,150,150)
 
 # PreviewPanel
-PP_POS = (CBP_WIDTH + 2*5, 100)
+PP_POS = (CBP_WIDTH + 2*5, 50)
 x = INTERFACE_SIZE[0] - PP_POS[0] - (OP_ENTRY_BOX_WIDTH + 15) - (OP_ENTRY_BOX_WIDTH + 10)
-PP_SIZE = (x, 500)
+y = INTERFACE_SIZE[1] - PP_POS[1] - 50
+PP_SIZE = (x, y)
 PP_COLOR = pygame.Color('#555555FF')
 
 # SelectPanel
@@ -49,3 +50,12 @@ MB_GEN_RECT = pygame.Rect((130, 10), (150, 30))
 MB_SAVE_RECT = pygame.Rect((290, 10), (130, 30))
 MB_LOAD_RECT = pygame.Rect((430, 10), (150, 30))
 MB_HELP_RECT = pygame.Rect((590, 10), (50, 30))
+
+# MousePositionDisplay
+x = PP_POS[0] + PP_SIZE[0] - 240
+y = PP_POS[1] + PP_SIZE[1] + 10
+MP_RECT = pygame.Rect((x,y),(240,25))
+
+
+
+

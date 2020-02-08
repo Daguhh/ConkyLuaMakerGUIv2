@@ -10,7 +10,7 @@ import pygame_gui
 
 import time
 
-from ObjectPanelClass import PreviewPanel, ChoiceButtonPanel, OptionPanel, SelectPanel, MenuButtons
+from ObjectPanelClass import PreviewPanel, ChoiceButtonPanel, OptionPanel, SelectPanel, MenuButtons, MousePosPanel
 from luadrawings import LuaDrawings
 
 from interface_object_position import INTERFACE_SIZE
@@ -188,31 +188,6 @@ def left_click(event) :
     else :
         return False
 
-class MousePosPanel:
-    def __init__(self, manager):
-
-        rect = pygame.Rect((380,560),(240,25))
-        self.label=pygame_gui.elements.UILabel(
-                relative_rect = rect,
-                text="mouse_pos",
-                manager = manager)
-
-#        rect = pygame.Rect((380,590),(120,25))
-#        self.is_on=pygame_gui.elements.UILabel(
-#                relative_rect = rect,
-#                text="grid size",
-#                manager = manager)
-#
-#        rect = pygame.Rect((500,590),(120,25))
-#        self.grid_step_entry = pygame_gui.elements.UITextEntryLine(
-#                relative_rect = pygame.Rect(rect),
-#                manager = manager)
-#
-    def update(self,mouse_pos) :
-        self.label.set_text('mouse position = {}'.format(mouse_pos))
-
-    def show_is_on(self,on) :
-        self.is_on.set_text(on)
 
 main()
 
