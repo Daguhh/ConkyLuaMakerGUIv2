@@ -7,6 +7,9 @@ written in python3 using :
   - pygame-gui
 
 developped and tested on debian gnu/linux only
+(uglier but better version than the last one)
+
+![alt text](Example/Screenshot_20200208.png)
 
 Usage :
 
