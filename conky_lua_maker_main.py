@@ -52,7 +52,7 @@ def main() :
     grid_size = 5
 
     while is_running:
-        time_delta = clock.tick(60)/1000.0
+        time_delta = clock.tick(10)/1000.0
         mouse_pos = pygame.mouse.get_pos() # absolute mouse pos
         pp_mouse_pos = ((mouse_pos[0]-previewpanel.pos[0])//grid_size*grid_size,
                         (mouse_pos[1]-previewpanel.pos[1])//grid_size*grid_size,)# previewpanel relative mouse pos
