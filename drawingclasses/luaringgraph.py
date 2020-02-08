@@ -75,7 +75,7 @@ class LuaRingGraph(LuaGraph):
         g = self.grid_step
         c = (c[0]//g*g, c[1]//g*g)
         self.pos = tup_dif(c,(r,r))
-        self.pos = (int(self.pos[0]), int(self.pos[1]))
+        #self.pos = (int(self.pos[0]), int(self.pos[1]))
         c = (r,r)
         self.dct['center'] = c
 

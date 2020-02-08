@@ -137,8 +137,8 @@ def main() :
                             #drawing.is_moving = False
                     else : # click on object => start moving
                         for i, drawing in enumerate(drawings.liste) :
-                            test_pos = (pp_mouse_pos[0]-drawing.pos[0],
-                                        pp_mouse_pos[1]-drawing.pos[1]) # relatiive object rect position
+                            test_pos = (int(pp_mouse_pos[0]-drawing.pos[0]),
+                                        int(pp_mouse_pos[1]-drawing.pos[1])) # relatiive object rect position
                             print('mouse:',pp_mouse_pos)
                             print('draw :',drawing.pos)
                             if 1 :
