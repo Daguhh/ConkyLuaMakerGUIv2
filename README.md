@@ -1,6 +1,6 @@
 # ConkyLuaMakerGUIv2
 
-A python tkinter GUI to create a Lua conf file for fisadev/conky-draw
+A python GUI to create a Lua conf file for https://github.com/fisadev/conky-draw
 
 written in python3 using : 
   - pygame (pygame.draw)
