@@ -53,7 +53,7 @@ class LuaRing(LuaGraph) :
     def update(self) :
 
         c = self.dct['center']
-        r = self.dct['radius']
+        r = self.dct['radius'] + self.dct['thickness']/2
         p = self.pos
 
         c = tup_sum(c,p)

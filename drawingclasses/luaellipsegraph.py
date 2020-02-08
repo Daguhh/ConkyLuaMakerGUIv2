@@ -77,8 +77,8 @@ class LuaEllipseGraph(LuaGraph) :
         c = self.dct['center']
         p = self.pos
 
-        w = self.dct['width']
-        h = self.dct['height']
+        w = self.dct['width'] + self.dct['bar_thickness']/2
+        h = self.dct['height'] + self.dct['bar_thickness']/2
 
         c = tup_sum(c,p)
         g = self.grid_step

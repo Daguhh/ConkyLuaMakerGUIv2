@@ -68,13 +68,14 @@ class LuaRingGraph(LuaGraph):
     def update(self) :
 
         c = self.dct['center']
-        r = self.dct['radius']
+        r = self.dct['radius'] + self.dct['bar_thickness']/2
         p = self.pos
 
         c = tup_sum(c,p)
         g = self.grid_step
         c = (c[0]//g*g, c[1]//g*g)
         self.pos = tup_dif(c,(r,r))
+        self.pos = (int(self.pos[0]), int(self.pos[1]))
         c = (r,r)
         self.dct['center'] = c
 
@@ -88,13 +89,19 @@ class LuaRingGraph(LuaGraph):
         if start_angle > end_angle :
             start_angle ,end_angle = end_angle, start_angle
 
+        #pygame.draw.arc(self.surface,
+        #                   self.dct['background_color'],
+        #                   rect,
+        #                   start_angle,
+        #                   end_angle,
+        #                   self.dct['background_thickness'])
+
         pygame.draw.arc(self.surface,
                            self.dct['bar_color'],
                            rect,
                            start_angle,
                            end_angle,
                            self.dct['bar_thickness'])
-
 
         self.mask = pygame.mask.from_surface(self.surface)
 

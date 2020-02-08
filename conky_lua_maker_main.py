@@ -52,16 +52,17 @@ def main() :
     grid_size = 5
 
     while is_running:
-        time_delta = clock.tick(15)/1000.0
+        time_delta = clock.tick(60)/1000.0
         mouse_pos = pygame.mouse.get_pos() # absolute mouse pos
         pp_mouse_pos = ((mouse_pos[0]-previewpanel.pos[0])//grid_size*grid_size,
                         (mouse_pos[1]-previewpanel.pos[1])//grid_size*grid_size,)# previewpanel relative mouse pos
+        keys = pygame.key.get_pressed()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 is_running = False
 
-            if event.type == pygame.USEREVENT:
+            elif event.type == pygame.USEREVENT:
                 if event.user_type == 'ui_button_pressed':
 
                     # create a new element
@@ -113,7 +114,8 @@ def main() :
 
 
             # Preview panel left click event
-            if left_click(event) and previewpanel.rect.collidepoint(mouse_pos) :
+            elif left_click(event)\
+                and previewpanel.rect.collidepoint(mouse_pos) :
 
                 # Get events position and draw object there
                 if drawings.buf.waiting_inputs :
@@ -137,17 +139,20 @@ def main() :
                         for i, drawing in enumerate(drawings.liste) :
                             test_pos = (pp_mouse_pos[0]-drawing.pos[0],
                                         pp_mouse_pos[1]-drawing.pos[1]) # relatiive object rect position
+                            print('mouse:',pp_mouse_pos)
+                            print('draw :',drawing.pos)
                             if 1 :
                                 if drawing.surface.get_rect().collidepoint(test_pos) : # in object rect
                                     if drawing.mask.get_at(test_pos) == True : # and in  non transparent area
                                         drawings.selected_item = i
-                                        mouse_pos_start = mouse_pos
-                                        drawing_pos_start = drawing.pos
-                                        drawing.is_moving = True
-                                        drawings.an_object_is_moving = True
                                         selectpanel.set_select_item(drawing.name)
                                         optionpanel.update_lua_dct(drawing.get_lua_dct())
-                                        break
+                                        if keys[pygame.K_LCTRL] :
+                                            mouse_pos_start = mouse_pos
+                                            drawing_pos_start = drawing.pos
+                                            drawing.is_moving = True
+                                            drawings.an_object_is_moving = True
+                                            break
 
             # move object (follow mouse)
             if drawings.an_object_is_moving :
