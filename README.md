@@ -25,7 +25,7 @@ Usage :
     2.1) Select an object :
       There is 3 ways to select an object :
             - create an object : it's directly "selected"
-            - hit with left mouse button an object on the preview panel (make it move too)
+            - hit with left mouse button an object on the preview panel (wiht left ctrl down to make it move)
             - select an object in the top right drop-downlist
             
             => as you do this, you should see the right panel update
@@ -33,7 +33,7 @@ Usage :
     2.2) Edit object properties :
       On the right part of the interface is displayed the selected object properties :
         - you can change any value and hit enter key to validate, graph will update
-        - you can, drag direclty an object with the mouse, a left click on an object will make it follow the mouse, 
+        - you can, drag direclty an object with the mouse, a left click on an object with left ctrl down will make it follow the mouse, 
         a second click release it. properties will update while drawing is moving (position for example)
         - you can (and should) rename object with the entry box to better identify them 
         (the program can't discriminate yet between two object with the same name, so it's better to rename them each time you create one for now)
