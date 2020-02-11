@@ -10,7 +10,7 @@ import pygame_gui
 
 import time
 
-from ObjectPanelClass import PreviewPanel, ChoiceButtonPanel, OptionPanel, SelectPanel, MenuButtons, MousePosPanel
+from ObjectPanelClass import PreviewPanel, ChoiceButtonPanel, OptionPanel, SelectPanel, MenuButtons
 from luadrawings import LuaDrawings
 
 from interface_object_position import INTERFACE_SIZE
@@ -35,11 +35,11 @@ def main() :
 
     # Inferface init
     menupanel = MenuButtons(manager)
-    previewpanel = PreviewPanel(window_surface)
+    previewpanel = PreviewPanel(window_surface, manager)
     choicepanel = ChoiceButtonPanel(window_surface, manager)
     optionpanel = OptionPanel(manager, window_surface)
     selectpanel = SelectPanel(manager, window_surface)
-    mouse_display = MousePosPanel(manager)
+    #mouse_display = MousePosPanel(manager)
 
     # Store drawings that will create lua conf file
     drawings = LuaDrawings(previewpanel.background)
@@ -56,6 +56,7 @@ def main() :
         mouse_pos = pygame.mouse.get_pos() # absolute mouse pos
         pp_mouse_pos = ((mouse_pos[0]-previewpanel.pos[0])//grid_size*grid_size,
                         (mouse_pos[1]-previewpanel.pos[1])//grid_size*grid_size,)# previewpanel relative mouse pos
+        previewpanel.mouse_pos = mouse_pos
         keys = pygame.key.get_pressed()
 
         for event in pygame.event.get():
@@ -64,10 +65,29 @@ def main() :
 
             elif event.type == pygame.USEREVENT:
                 if event.user_type == 'ui_button_pressed':
+                    #print(dir(event.ui_element))
+                    print('===================================')
+                    print(event.ui_element.element_ids[0])
+                    print(event.ui_object_id)
+                    print(previewpanel.grid_step_slider.element_ids[0])
+                    print('____________________________')
+                    print(previewpanel.grid_step_slider.element_ids[0] == event.ui_element.element_ids[0])
+
+                    for ids in event.ui_element.element_ids :
+                        print(ids == previewpanel.grid_step_slider)
+#                    print(event.type)
+#                    print(event.user_type)
+#                    print(event.ui_object_id)
+#                    print(event.ui_groups)
+#                    print('===============')
+#                    print(dir(previewpanel.grid_step_slider))
+#                    print(previewpanel.grid_step_slider.element_ids)
+#                    #print(dir(previewpanel.grid_step_slider))
 
                     # create a new element
                     if event.ui_element in choicepanel.buttons :
                         # start creating an element and make it wait for input
+#                        drawings.draw_area_step = previewpanel.grid_size
                         drawings.create(choicepanel.get_name(event.ui_element))
 
                     # load or save a config
@@ -86,6 +106,13 @@ def main() :
                         del(drawings.liste[drawings.selected_item])
                         del(selectpanel.drawing_name_list[drawings.selected_item])
                         selectpanel.update_list([drawing.name for drawing in drawings.liste])
+
+                    elif previewpanel.grid_step_slider.element_ids[0] == event.ui_element.element_ids[0] :
+                        if drawings.liste :
+                            drawings.liste[drawings.selected_item].grid_step = previewpanel.grid_size
+
+                    else :
+                        print('rien')
 
                 # Select another object with dropdown menu
                 elif event.user_type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED :
@@ -107,10 +134,10 @@ def main() :
                         selectpanel.new_name_entry_box.set_text("Enter new name")
 
                     # change grid_size for the object
-                    elif event.ui_element == selectpanel.grid_step_entry :
-                        grid_step = int(selectpanel.grid_step_entry.text)
-                        selectpanel.grid_step_entry.set_text('enter an int')
-                        drawings.liste[drawings.selected_item].grid_step = grid_step
+                    #elif event.ui_element == selectpanel.grid_step_entry :
+                    #    grid_step = int(selectpanel.grid_step_entry.text)
+                    #    selectpanel.grid_step_entry.set_text('enter an int')
+                    #    drawings.liste[drawings.selected_item].grid_step = grid_step
 
 
             # Preview panel left click event
@@ -119,13 +146,15 @@ def main() :
 
                 # Get events position and draw object there
                 if drawings.buf.waiting_inputs :
-                    drawings.buf.add_input(pp_mouse_pos) # store mouse position in a buffer
+                    #drawings.buf.add_input(pp_mouse_pos) # store mouse position in a buffer
+                    drawings.buf.add_input(previewpanel.mouse_pos) # store mouse position in a buffer
                     if not drawings.buf.waiting_inputs : # and buffer is non empty :
                         drawings.draw_from_buffer() # draw object
                         drawings.selected_item = -1
                         optionpanel.update_lua_dct(drawings.liste[-1].get_lua_dct())
                         selectpanel.current_selection = drawings.liste[-1].name
                         selectpanel.update_list([drawing.name for drawing in drawings.liste])
+                        drawings.liste[-1].grid_step = previewpanel.grid_size
 
                 # Or select/Deselect Object to make it move
                 elif drawings.liste : # if an object exist
@@ -139,14 +168,15 @@ def main() :
                         for i, drawing in enumerate(drawings.liste) :
                             test_pos = (int(pp_mouse_pos[0]-drawing.pos[0]),
                                         int(pp_mouse_pos[1]-drawing.pos[1])) # relatiive object rect position
-                            print('mouse:',pp_mouse_pos)
-                            print('draw :',drawing.pos)
+                            #print('mouse:',previewpanel.mouse_pos)
+                            #print('draw :',drawing.pos)
                             if 1 :
                                 if drawing.surface.get_rect().collidepoint(test_pos) : # in object rect
                                     if drawing.mask.get_at(test_pos) == True : # and in  non transparent area
                                         drawings.selected_item = i
                                         selectpanel.set_select_item(drawing.name)
                                         optionpanel.update_lua_dct(drawing.get_lua_dct())
+                                        previewpanel.set_grid_size(drawing.grid_step)
                                         if keys[pygame.K_LCTRL] :
                                             mouse_pos_start = mouse_pos
                                             drawing_pos_start = drawing.pos
@@ -154,6 +184,10 @@ def main() :
                                             drawings.an_object_is_moving = True
                                             break
 
+
+            if drawings.buf.waiting_inputs\
+                and previewpanel.rect.collidepoint(mouse_pos) :
+                drawings.preview_from_buffer(previewpanel.mouse_pos)
             # move object (follow mouse)
             if drawings.an_object_is_moving :
                 for drawing in drawings.liste :
@@ -163,7 +197,8 @@ def main() :
                         drawing.update()
                         optionpanel.update_position(drawing.get_lua_dct())
 
-            mouse_display.update(pp_mouse_pos)
+            #mouse_display.update(pp_mouse_pos)
+            #previewpanel.update(pp_mouse_pos)
 
             manager.process_events(event)
         toc = time.time() - tic
@@ -173,7 +208,7 @@ def main() :
             show = 0
             average = toc*10
             tic = time.time()
-            print("mean loop time = {:6.4}ms".format(average))
+            #print("mean loop time = {:6.4}ms".format(average))
 
         manager.update(time_delta)
 
@@ -183,6 +218,16 @@ def main() :
         optionpanel.blit()
         for drawing in drawings.liste :
             drawing.blit()
+            #print("noraml loop")
+            #print(drawing.name)
+        if drawings.buf.input_remaning == 1 :
+ #           if 1 :
+            try :
+                #print("from buffer")
+                drawings.buf.drawing.name
+                drawings.buf.drawing.blit()
+            except :
+                print("ca passe pas")
 
         manager.draw_ui(window_surface)
         pygame.display.update()

@@ -45,12 +45,27 @@ class LuaStaticText(LuaGraph) :
 
     def draw(self, position) :
 
-        self.pos = position[0]
+        g = self.grid_step
+        self.pos = (position[0][0]//g*g,
+                    position[0][1]//g*g)
+
+        self.myfont = pygame.font.SysFont(self.dct['font'],
+                                     self.dct['font_size'])
+        textsurface = self.myfont.render(self.dct['text'],
+                                    False,
+                                    self.dct['color'])
+
+        _, h = textsurface.get_size()
+        p = tup_sum(self.pos,(0,-h))
+
+        self.dct['from'] = (0,h)
+        self.pos = [int(p[0]), int(p[1])]
 
     def update(self) :
 
         p = tup_sum(self.pos, self.dct['from'])
-
+        g = self.grid_step
+        p = (int(p[0])//g*g, int(p[1])//g*g)
         self.myfont = pygame.font.SysFont(self.dct['font'],
                                      self.dct['font_size'])
         textsurface = self.myfont.render(self.dct['text'],
@@ -83,11 +98,13 @@ class LuaStaticText(LuaGraph) :
             y = sh
 
         x, y = int(x) , int(y)
-        g = self.grid_step
-        x = x//g*g
-        y = y//g*g
+        print(g)
+        #x = x//g*g
+        #y = y//g*g
 
         self.dct['from'] = (-x,y)
         p = tup_sum(p,(x,-y))
+        print(p)
+        print(-x,y)
         self.pos = [int(p[0]), int(p[1])]
 

@@ -33,7 +33,7 @@ class LuaDrawings :
         #print(dct['kind'])
 
         kind = dct['kind']#[1:-1]
-        print(kind)
+        #print(kind)
         if kind == 'ring_graph' :
             drawing = LuaRingGraph(self.draw_area)
         elif kind == 'ellipse_graph' :
@@ -74,11 +74,7 @@ class LuaDrawings :
         elif kind ==  "static_text" :
             drawing = LuaStaticText(self.draw_area)
 
-        self.buf.drawing = drawing
-        self.buf.waiting_inputs = True
-        self.buf.input_remaning = drawing.input_remaning
-
-        #return drawing
+        self.buf.set_drawing(drawing)
 
     def draw_from_buffer(self) :
         #drawing = self.buf.drawing
@@ -86,6 +82,10 @@ class LuaDrawings :
         self.buf.draw()
         self.liste.append(self.buf.drawing)
         self.buf.clear()
+
+    def preview_from_buffer(self, mouse_pos) :
+
+        self.buf.draw(mouse_pos)
 
     def get_dict_from_name(self, name) :
         for i, drawing in enumerate(self.liste) :
@@ -107,14 +107,30 @@ class NewObjectBuffer :
         self.inputs_pos = []
         self.drawing = None
 
+    def set_drawing(self, drawing) :
+
+        self.drawing = drawing
+        self.waiting_inputs = True
+        self.input_remaning = drawing.input_remaning
+
     def add_input(self, pos) :
         self.input_remaning -=1
         self.inputs_pos.append(pos)
         if self.input_remaning == 0 :
             self.waiting_inputs = False
 
-    def draw(self) :
-        self.drawing.draw(self.inputs_pos)
+    def draw(self, mouse_pos=(0,0)) :
+
+        #if not self.inputs_pos == 0 :
+        if self.input_remaning == 2 :
+            pass
+        elif self.input_remaning == 1 :
+            fake_inputs = self.inputs_pos.copy()
+            fake_inputs.append(mouse_pos)
+            #print('fake : ',fake_inputs)
+            self.drawing.draw(fake_inputs)
+        else :
+            self.drawing.draw(self.inputs_pos)
 
     def is_empty(self) :
         if self.waiting_inputs == False and self.inputs_pos :

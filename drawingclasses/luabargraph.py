@@ -22,6 +22,7 @@ class LuaBarGraph(LuaGraph):
         self.draw_area = draw_area
         self.name = "bar_graph"
         self.input_remaning = 2
+        self.grid_step = 1
 
         self.dct = {"kind" : 'bar_graph',
                     "from" : (0,0),
@@ -51,8 +52,28 @@ class LuaBarGraph(LuaGraph):
 
     def draw(self, positions) :
 
+        #print("set position :", positions)
         self.dct['from'] = positions[0]
         self.dct['to'] = positions[1]
+
+        h = self.dct['bar_thickness']/2
+        f = self.dct['from']
+        t = self.dct['to']
+        p = (0,0)
+        of = self.dct['bar_thickness']*1
+
+        #print('draw : h:{}, f:{}, t:{}, p:{}, of:{}'.format(h,f,t,p,of))
+
+        f = tup_sum(f,p)
+        t = tup_sum(t,p)
+
+        p = (min(f[0], t[0]), min(f[1],t[1]))
+        f = (f[0] - p[0] + of, f[1] - p[1] + of)
+        t = (t[0] - p[0] + of, t[1] - p[1] + of)
+
+        self.pos = (p[0]-of, p[1]-of)
+        self.dct['from'] = f
+        self.dct['to']  = t
 
     def update(self) :
 
@@ -62,8 +83,14 @@ class LuaBarGraph(LuaGraph):
         p = self.pos
         of = self.dct['bar_thickness']*1
 
+        #print('upda : h:{}, f:{}, t:{}, p:{}, of:{}'.format(h,f,t,p,of))
+
         f = tup_sum(f,p)
         t = tup_sum(t,p)
+
+        g = self.grid_step
+        f = (f[0]//g*g, f[1]//g*g)
+        t = (t[0]//g*g, t[1]//g*g)
 
         p = (min(f[0], t[0]), min(f[1],t[1]))
         f = (f[0] - p[0] + of, f[1] - p[1] + of)

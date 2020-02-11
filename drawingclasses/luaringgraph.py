@@ -20,7 +20,7 @@ class LuaRingGraph(LuaGraph):
         LuaGraph.__init__(self)
 
         self.draw_area = draw_area
-        self.grid_step = 10
+        self.grid_step = 1
         self.name = "ring_graph"
 
         self.input_remaning = 2

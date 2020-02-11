@@ -21,6 +21,7 @@ class LuaLineGraph(LuaGraph):
 
         self.draw_area = draw_area
         self.name = "line"
+        self.grid_step = 1
 
         self.input_remaning = 2
 
@@ -39,6 +40,26 @@ class LuaLineGraph(LuaGraph):
         self.dct['from'] = positions[0]
         self.dct['to'] = positions[1]
 
+        h = self.dct['thickness']/2
+        f = self.dct['from']
+        t = self.dct['to']
+        p = (0,0)
+        of = self.dct['thickness']*1
+
+        f = tup_sum(f,p)
+        t = tup_sum(t,p)
+
+        p = (min(f[0], t[0]), min(f[1],t[1]))
+        f = (f[0] - p[0] + of, f[1] - p[1] + of)
+        t = (t[0] - p[0] + of, t[1] - p[1] + of)
+
+        rect = (max(f[0],t[0])+2*of,
+                max(f[1],t[1])+2*of)
+
+        self.pos = (p[0]-of, p[1]-of)
+        self.dct['from'] = f
+        self.dct['to']  = t
+
     def update(self) :
 
         h = self.dct['thickness']/2
@@ -49,6 +70,10 @@ class LuaLineGraph(LuaGraph):
 
         f = tup_sum(f,p)
         t = tup_sum(t,p)
+
+        g = self.grid_step
+        f = (f[0]//g*g, f[1]//g*g)
+        t = (t[0]//g*g, t[1]//g*g)
 
         p = (min(f[0], t[0]), min(f[1],t[1]))
         f = (f[0] - p[0] + of, f[1] - p[1] + of)
