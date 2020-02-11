@@ -49,13 +49,11 @@ def main() :
 
     load_time_1 = clock.tick()
 
-    grid_size = 5
-
     while is_running:
-        time_delta = clock.tick(10)/1000.0
+        time_delta = clock.tick(15)/1000.0
         mouse_pos = pygame.mouse.get_pos() # absolute mouse pos
-        pp_mouse_pos = ((mouse_pos[0]-previewpanel.pos[0])//grid_size*grid_size,
-                        (mouse_pos[1]-previewpanel.pos[1])//grid_size*grid_size,)# previewpanel relative mouse pos
+        pp_mouse_pos = ((mouse_pos[0]-previewpanel.pos[0]),
+                        (mouse_pos[1]-previewpanel.pos[1]))
         previewpanel.mouse_pos = mouse_pos
         keys = pygame.key.get_pressed()
 
@@ -65,29 +63,10 @@ def main() :
 
             elif event.type == pygame.USEREVENT:
                 if event.user_type == 'ui_button_pressed':
-                    #print(dir(event.ui_element))
-                    print('===================================')
-                    print(event.ui_element.element_ids[0])
-                    print(event.ui_object_id)
-                    print(previewpanel.grid_step_slider.element_ids[0])
-                    print('____________________________')
-                    print(previewpanel.grid_step_slider.element_ids[0] == event.ui_element.element_ids[0])
-
-                    for ids in event.ui_element.element_ids :
-                        print(ids == previewpanel.grid_step_slider)
-#                    print(event.type)
-#                    print(event.user_type)
-#                    print(event.ui_object_id)
-#                    print(event.ui_groups)
-#                    print('===============')
-#                    print(dir(previewpanel.grid_step_slider))
-#                    print(previewpanel.grid_step_slider.element_ids)
-#                    #print(dir(previewpanel.grid_step_slider))
 
                     # create a new element
                     if event.ui_element in choicepanel.buttons :
                         # start creating an element and make it wait for input
-#                        drawings.draw_area_step = previewpanel.grid_size
                         drawings.create(choicepanel.get_name(event.ui_element))
 
                     # load or save a config
@@ -100,7 +79,6 @@ def main() :
 
                         elif event.ui_element.text == "Generate luaconf" :
                             menupanel.gen_luaconf(drawings.liste)
-                        #menupanel.execute(event.ui_element, drawings.liste)
 
                     elif event.ui_element.text == "Del" :
                         del(drawings.liste[drawings.selected_item])
@@ -133,20 +111,12 @@ def main() :
                         selectpanel.update_list([drawing.name for drawing in drawings.liste])
                         selectpanel.new_name_entry_box.set_text("Enter new name")
 
-                    # change grid_size for the object
-                    #elif event.ui_element == selectpanel.grid_step_entry :
-                    #    grid_step = int(selectpanel.grid_step_entry.text)
-                    #    selectpanel.grid_step_entry.set_text('enter an int')
-                    #    drawings.liste[drawings.selected_item].grid_step = grid_step
-
-
             # Preview panel left click event
             elif left_click(event)\
                 and previewpanel.rect.collidepoint(mouse_pos) :
 
                 # Get events position and draw object there
                 if drawings.buf.waiting_inputs :
-                    #drawings.buf.add_input(pp_mouse_pos) # store mouse position in a buffer
                     drawings.buf.add_input(previewpanel.mouse_pos) # store mouse position in a buffer
                     if not drawings.buf.waiting_inputs : # and buffer is non empty :
                         drawings.draw_from_buffer() # draw object
@@ -160,29 +130,23 @@ def main() :
                 elif drawings.liste : # if an object exist
                     if drawings.an_object_is_moving : # stop moving at click
                         drawings.liste[drawings.selected_item].is_moving = False
-                        #for drawing in drawings.liste :
-                        if 1 :
-                            drawings.an_object_is_moving = False
-                            #drawing.is_moving = False
+                        drawings.an_object_is_moving = False
                     else : # click on object => start moving
                         for i, drawing in enumerate(drawings.liste) :
                             test_pos = (int(pp_mouse_pos[0]-drawing.pos[0]),
                                         int(pp_mouse_pos[1]-drawing.pos[1])) # relatiive object rect position
-                            #print('mouse:',previewpanel.mouse_pos)
-                            #print('draw :',drawing.pos)
-                            if 1 :
-                                if drawing.surface.get_rect().collidepoint(test_pos) : # in object rect
-                                    if drawing.mask.get_at(test_pos) == True : # and in  non transparent area
-                                        drawings.selected_item = i
-                                        selectpanel.set_select_item(drawing.name)
-                                        optionpanel.update_lua_dct(drawing.get_lua_dct())
-                                        previewpanel.set_grid_size(drawing.grid_step)
-                                        if keys[pygame.K_LCTRL] :
-                                            mouse_pos_start = mouse_pos
-                                            drawing_pos_start = drawing.pos
-                                            drawing.is_moving = True
-                                            drawings.an_object_is_moving = True
-                                            break
+                            if drawing.surface.get_rect().collidepoint(test_pos) : # in object rect
+                                if drawing.mask.get_at(test_pos) == True : # and in  non transparent area
+                                    drawings.selected_item = i
+                                    selectpanel.set_select_item(drawing.name)
+                                    optionpanel.update_lua_dct(drawing.get_lua_dct())
+                                    previewpanel.set_grid_size(drawing.grid_step)
+                                    if keys[pygame.K_LCTRL] :
+                                        mouse_pos_start = mouse_pos
+                                        drawing_pos_start = drawing.pos
+                                        drawing.is_moving = True
+                                        drawings.an_object_is_moving = True
+                                        break
 
 
             if drawings.buf.waiting_inputs\
@@ -197,18 +161,16 @@ def main() :
                         drawing.update()
                         optionpanel.update_position(drawing.get_lua_dct())
 
-            #mouse_display.update(pp_mouse_pos)
-            #previewpanel.update(pp_mouse_pos)
-
             manager.process_events(event)
+
         toc = time.time() - tic
         nb_loop += 1
         show += 1
-        if show > 100 :
+        if show >= 500 :
+            average = toc*1000/show
             show = 0
-            average = toc*10
             tic = time.time()
-            #print("mean loop time = {:6.4}ms".format(average))
+            print("mean loop time = {:9.2f}ms".format(average))
 
         manager.update(time_delta)
 
@@ -227,7 +189,7 @@ def main() :
                 drawings.buf.drawing.name
                 drawings.buf.drawing.blit()
             except :
-                print("ca passe pas")
+                print('thickness is bigger than size :\n    =>  enlarge your draw')
 
         manager.draw_ui(window_surface)
         pygame.display.update()

@@ -13,18 +13,38 @@ def lua2pil_dct(lua_dct, pos):
     for k, v in lua_dct.items() :
         #print("A^^^^^^^^^^^^^^^^^^^^^^^^^^^A")
         #print(k,v)
-        if k in INT_LIST     : v = int(v)
-        elif k in FLOAT_LIST : v = float(v)
-        elif k in TEXT_LIST  : v = v[1:-1]
-        elif k in TUPLE_LIST : v = unformat_xy(v, pos)
-        elif k in COLOR_LIST : v = lua2pil_color(v)
-        elif k in ANGLE_LIST : v = 360 - int(v)
-        elif k in KIND_LIST : v = v[1:-1]
-        elif k in BOOL_LIST :
-            if v == 'true' :  v = True
-            else : v  = False
+        try :
+            if k in INT_LIST     : v = int(v)
+            elif k in FLOAT_LIST : v = float(v)
+            elif k in TEXT_LIST  : v = v[1:-1]
+            elif k in TUPLE_LIST : v = unformat_xy(v, pos)
+            elif k in COLOR_LIST : v = lua2pil_color(v)
+            elif k in ANGLE_LIST : v = 360 - int(v)
+            elif k in KIND_LIST : v = v[1:-1]
+            elif k in BOOL_LIST :
+                if v == 'true' :  v = True
+                else : v  = False
 
-        pil_dct[k] = v
+            pil_dct[k] = v
+
+        except TypeError:
+
+            print('type error')
+            print('value for {} is a {}'.format(k,type(v)))
+            print('value has not been changed\nplease change the it\nor reload object(left click on preview)')
+            pil_dct[''] = ''
+
+        except ValueError:
+
+            print('\nvalue error')
+            print('value for {} is a {}'.format(k,type(v)))
+            print('value has not been changed\nplease change the it\nor reload object(left click on preview)')
+            pil_dct[''] = ''
+#        else :
+#            print('nul!!!!!!!!!!!!!!!')
+#        except :
+#            print('except')
+
 
     return pil_dct
 
@@ -33,16 +53,19 @@ def pil2lua_dct(pil_dct, pos):
     for k, v in pil_dct.items() :
 #        print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 #        print(k,v)
-        if k in INT_LIST     : pass
-        elif k in FLOAT_LIST : pass
-        elif k in TEXT_LIST  : v = "'{}'".format(v)
-        elif k in TUPLE_LIST : v = format_xy(v, pos)
-        elif k in COLOR_LIST : v = pil2lua_color(v)
-        elif k in ANGLE_LIST : v = 360 - (v)
-        elif k in KIND_LIST : v = "'{}'".format(v)
-        elif k in BOOL_LIST  :
-            if v == True :  v = 'true'
-            else : v  = 'false'
+        try :
+            if k in INT_LIST     : pass
+            elif k in FLOAT_LIST : pass
+            elif k in TEXT_LIST  : v = "'{}'".format(v)
+            elif k in TUPLE_LIST : v = format_xy(v, pos)
+            elif k in COLOR_LIST : v = pil2lua_color(v)
+            elif k in ANGLE_LIST : v = 360 - (v)
+            elif k in KIND_LIST : v = "'{}'".format(v)
+            elif k in BOOL_LIST  :
+                if v == True :  v = 'true'
+                else : v  = 'false'
+        except :
+            print('except')
 
         lua_dct[k] = v
 
@@ -95,7 +118,7 @@ ANGLE_LIST = ["start_angle",
 def lua2pil_color(lua_color) :
 
     lua_color = lua_color[1:-1]
-    print(lua_color)
+    #print(lua_color)
 
     ind = [slice(2*n, 2*n+2) for n in range(1,4)]
     pil_color = tuple([int(lua_color[i],16) for i in ind])

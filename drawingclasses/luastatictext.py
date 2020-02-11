@@ -98,13 +98,13 @@ class LuaStaticText(LuaGraph) :
             y = sh
 
         x, y = int(x) , int(y)
-        print(g)
+        #print(g)
         #x = x//g*g
         #y = y//g*g
 
         self.dct['from'] = (-x,y)
         p = tup_sum(p,(x,-y))
-        print(p)
-        print(-x,y)
+        #print(p)
+        #print(-x,y)
         self.pos = [int(p[0]), int(p[1])]
 
