@@ -10,10 +10,10 @@ import pygame_gui
 
 import time
 
-from ObjectPanelClass import PreviewPanel, ChoiceButtonPanel, OptionPanel, SelectPanel, MenuButtons
+from interfaceclasses import PreviewPanel, ChoiceButtonPanel, OptionPanel,\
+                             SelectPanel, MenuButtons, INTERFACE_SIZE
 from luadrawings import LuaDrawings
 
-from interface_object_position import INTERFACE_SIZE
 
 
 def main() :

@@ -12,7 +12,7 @@ import pygame_gui
 from math import pi, sin, cos
 from .math_tool import rotation_transformation as rot
 
-from vectproduct import vect_product, tup_norm, tup_sum, tup_dif, tup_tim
+from .vectproduct import vect_product, tup_norm, tup_sum, tup_dif, tup_tim
 from .parse_dct import lua2pil_dct, pil2lua_dct
 from .luagraph import LuaGraph
 

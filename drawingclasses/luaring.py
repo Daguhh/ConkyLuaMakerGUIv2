@@ -10,7 +10,7 @@ import pygame_gui
 from math import pi
 
 from .parse_dct import lua2pil_dct, pil2lua_dct
-from vectproduct import vect_product, tup_norm, tup_sum, tup_dif, tup_tim
+from .vectproduct import vect_product, tup_norm, tup_sum, tup_dif, tup_tim
 from .luagraph import LuaGraph
 
 

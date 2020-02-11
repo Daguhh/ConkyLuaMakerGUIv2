@@ -13,7 +13,7 @@ from math import pi, sin, cos
 from .math_tool import rotation_transformation as rot
 
 from .luagraph import LuaGraph
-from vectproduct import vect_product, tup_norm, tup_sum, tup_dif, tup_tim
+from .vectproduct import vect_product, tup_norm, tup_sum, tup_dif, tup_tim
 
 class LuaVariableText(LuaGraph) :
 
