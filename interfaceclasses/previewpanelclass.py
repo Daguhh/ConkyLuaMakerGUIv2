@@ -30,17 +30,18 @@ class PreviewPanel:
                 text="mouse_pos",
                 manager = manager)
 
-        rect = pygame.Rect((208,610),(300,20))
+        rect = pygame.Rect((180,610),(300,20))
         self.grid_step_slider = pygame_gui.elements.UIHorizontalSlider(
                 rect,
                 self.grid_size,
                 (1,60),
                 manager)
 
-        rect = pygame.Rect((208,630),(300,20))
+        self.grid_size_text = 'grid steps = {} pixels'
+        rect = pygame.Rect((180,630),(300,20))
         self.grid_step_label=pygame_gui.elements.UILabel(
                 relative_rect = rect,
-                text=str(int(self.grid_step_slider.get_current_value())),
+                text=self.grid_size_text.format(int(self.grid_step_slider.get_current_value())),
                 manager = manager)
 
         #self.show_grid()
@@ -48,7 +49,7 @@ class PreviewPanel:
     def set_grid_size(self, grid_size) :
 
         self.grid_step_slider.current_value=grid_size
-        self.grid_step_label.set_text(str(grid_size))
+        self.grid_step_label.set_text(self.grid_size_text.format(grid_size))
 
     @property
     def grid_size_as_changed(self) :
@@ -61,7 +62,7 @@ class PreviewPanel:
     def show_grid(self) :
         self.grid_size = int(self.grid_step_slider.get_current_value())
 
-        if self.grid_size >= 2 :
+        if self.grid_size >= 5 :
 
             color = (50,50,50)
             for step in range(0,self.size[0],self.grid_size) :
@@ -95,7 +96,7 @@ class PreviewPanel:
     def blit(self) :
 
         self.show_grid()
-        self.grid_step_label.set_text(str(int(self.grid_step_slider.get_current_value()))),
+        self.grid_step_label.set_text(self.grid_size_text.format(int(self.grid_step_slider.get_current_value())))
         self.parent.blit(self.background, self.pos)
 
     def clear(self) :

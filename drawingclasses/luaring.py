@@ -23,7 +23,6 @@ class LuaRing(LuaGraph) :
         self.grid_step = 1
 
         self.name = "ring_graph"
-
         self.input_remaning = 2
 
         self.dct = {
@@ -45,6 +44,7 @@ class LuaRing(LuaGraph) :
         to = positions[1]
         r = int(((center[0]-to[0])**2 + (center[1]-to[1])**2)**0.5)
         self.pos = (center[0]-r, center[1]-r)
+        print('position = ', self.pos)
         center = (r,r)
 
         self.dct['center'] = center
@@ -81,3 +81,7 @@ class LuaRing(LuaGraph) :
 
         self.mask = pygame.mask.from_surface(self.surface)
 
+    def resize(self, new_mouse_pos) :
+        center = tup_sum(self.dct["center"], self.pos)
+        radius_vect = tup_dif(new_mouse_pos, center)
+        self.dct['radius'] = tup_norm(radius_vect)

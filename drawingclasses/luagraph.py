@@ -9,6 +9,7 @@ class LuaGraph:
 
         self.pos = (0,0)
         self.is_moving = False
+        self.is_resizing = False
         self.position_list=[]
 
     def get_lua_dct(self) :
@@ -23,8 +24,10 @@ class LuaGraph:
         self.dct[k] = v
 
     def blit(self):
-
-        self.update()
+        try :
+            self.update()
+        except ValueError as err :
+            print('{} : thickness > radius\n you should give a larger value\n put your mouse away'.format(err)) 
         self.draw_area.blit(self.surface,self.pos)
 
 

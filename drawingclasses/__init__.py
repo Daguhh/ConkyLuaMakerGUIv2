@@ -7,7 +7,7 @@ Created on Thu Jan 18 01:20:29 2018
 """
 
 from .luabargraph import LuaBarGraph
-from .lualinegraph import LuaLineGraph
+from .lualine import LuaLine
 
 from .luaringgraph import LuaRingGraph
 from .luaring import LuaRing

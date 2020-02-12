@@ -105,3 +105,7 @@ class LuaRingGraph(LuaGraph):
 
         self.mask = pygame.mask.from_surface(self.surface)
 
+    def resize(self, new_mouse_pos) :
+        center = tup_sum(self.dct["center"], self.pos)
+        radius_vect = tup_dif(new_mouse_pos, center)
+        self.dct['radius'] = tup_norm(radius_vect)

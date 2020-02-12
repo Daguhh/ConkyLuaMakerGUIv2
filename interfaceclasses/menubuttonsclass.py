@@ -9,8 +9,10 @@ from drawingclasses import lua2pil_dct, pil2lua_dct
 
 from .interface_object_position import *
 
-class MenuButtons :
+class MenuButtons :#(ConkyLuaMaker_HelpClass) :
     def __init__(self, manager) :
+
+ #       ConkyLuaMaker_HelpClass.__init__(self)
 
         self.manager = manager
 
@@ -44,6 +46,9 @@ class MenuButtons :
             tool_tip_text = 'display help')
 
         self.buttons = [menu, gen, save, load, aide]
+
+        self.help_text = {"test" : "yghvighighlgihlgfvgbggggg",
+                          "actually_link" : "youpi"}
 
     def execute(self, ui_element, draw_lst) :
         #print("ohoh")
@@ -107,7 +112,71 @@ class MenuButtons :
 
         return dct_list, name_list
 
-    def show_help(self):
-        pass
+
+#class ConkyLuaMaker_HelpClass:
+
+#    def __init__(self):
+#        pass
+
+    def display_help(self):
+
+        self.help_box = pygame_gui.windows.UIMessageWindow(pygame.Rect((500,100),(400, 350)),
+                        'Welcome to ConkyLuaMakerGUI',
+                        '<font color=normal_text>'
+                        '<a href="get_started">Get started</a><br>'
+                        '<a href="shortcuts">Shortcuts</a><br>',
+                        self.manager)
+
+        self.help_dct = {"back" : '<br>'
+                        '<a href="get_started">Get started</a><br>'
+                        '<a href="shortcuts">Shortcuts</a><br>'
+                        '<br>'
+                        '<br>',
+                        "get_started" : ''
+                        '<a href="back">< Go back</a><br><br>'
+                        ' 1) hit a button on left panel to initiate <a href="drawing"> drawing</a> creation<br>'
+                        ' 2) interact with drawing area to place objects (1 or 2 left click)<br>'
+                        ' 3) rename and edit <a href="select">selected</a> drawing properties on right panel (keybord inputs + enter<br>'
+                        ' 4) generate lua conf with top buttons<br>'
+                        '<br>'
+                        '<br>',
+                        "shortcuts" : ''
+                        '<a href="back">< Go back</a><br><br>'
+                        'You can interact with drawings in the center panel, try to hit it with left mouse button.<br>'
+                        'Shortcuts : (no need to hold) <br><br>'
+                        'left click =  select<br>'
+                        'left click + left ctrl = move<br>'
+                        'left click + left maj = resize<br>'
+                        '<br>'
+                        '<br>',
+                         "select" : ''
+                        '<a href="back">< Go back</a><br><br>'
+                         'ways to select an object :<br>'
+                         '  - left mouse button<br>'
+                         '  - drop-down panel<br>'
+                         '  - newly created object will be selected automatically'
+                        '<br>'
+                        '<br>',
+                        "drawing": ''
+                        '<a href="back">< Go back</a><br><br>'
+                        'there is 4 drawing types : <br>'
+                         '  - ring <br>'
+                         '  - ellipse <br>'
+                         '  - bar <br>'
+                         '  - text <br><br>'
+                         'for each their is 2 version :<br>'
+                         '  - graph : that can represent a conky value <br>'
+                         '  - static : that is just cosmetics <br><br>'
+                         'after you choose one drawing by hitting a button,'
+                         'select area on the preview panel where you want to draw it :<br>'
+                         '  - ring and ellipse : 1st hit = center<br>'
+                         '                       2nd hit = radius<br>'
+                         '  - bar : 2 hit = start, end<br>'
+                         '  - text : 1 hit = left down corner text rectangle position'
+                        }
 
 
+    def display_link(self, name) :
+        new_text = self.help_dct[name]
+        self.help_box.text_block.html_text = new_text
+        self.help_box.rebuild()

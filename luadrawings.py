@@ -8,7 +8,7 @@ from drawingclasses import GRAPH_LIST,\
                            LuaBarGraph,\
                            LuaRingGraph,\
                            LuaStaticText,\
-                           LuaLineGraph,\
+                           LuaLine,\
                            LuaRing,\
                            LuaEllipse,\
                            LuaEllipseGraph,\
@@ -24,6 +24,7 @@ class LuaDrawings :
         self.buf = NewObjectBuffer()
 
         self.an_object_is_moving = False
+        self.an_object_is_resizing = False
 
         self.selected_item = 0
 
@@ -47,7 +48,7 @@ class LuaDrawings :
         elif kind == 'ellipse' :
             drawing = LuaEllipse(self.draw_area)
         elif kind ==  'line' :
-            drawing = LuaLineGraph(self.draw_area)
+            drawing = LuaLine(self.draw_area)
         elif kind ==  'static_text' :
             #print('mlmlmlml')
             drawing = LuaStaticText(self.draw_area)
@@ -70,7 +71,7 @@ class LuaDrawings :
         elif kind == 'ellipse' :
             drawing = LuaEllipse(self.draw_area)
         elif kind ==  "line" :
-            drawing = LuaLineGraph(self.draw_area)
+            drawing = LuaLine(self.draw_area)
         elif kind ==  "static_text" :
             drawing = LuaStaticText(self.draw_area)
 

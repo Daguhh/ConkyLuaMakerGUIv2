@@ -21,6 +21,7 @@ def lua2pil_dct(lua_dct, pos):
             elif k in COLOR_LIST : v = lua2pil_color(v)
             elif k in ANGLE_LIST : v = 360 - int(v)
             elif k in KIND_LIST : v = v[1:-1]
+            elif k in WH_LIST : v = int(v)
             elif k in BOOL_LIST :
                 if v == 'true' :  v = True
                 else : v  = False
@@ -61,6 +62,7 @@ def pil2lua_dct(pil_dct, pos):
             elif k in COLOR_LIST : v = pil2lua_color(v)
             elif k in ANGLE_LIST : v = 360 - (v)
             elif k in KIND_LIST : v = "'{}'".format(v)
+            elif k in WH_LIST : v = str(int(v))
             elif k in BOOL_LIST  :
                 if v == True :  v = 'true'
                 else : v  = 'false'
@@ -86,9 +88,10 @@ global FLOAT_LIST
 FLOAT_LIST = ["alpha",
               "bar_alpha",
               "background_alpha",
-              "background_alpha_critical",
-              "width",
-              "height"]
+              "background_alpha_critical"]
+global WH_LIST
+WH_LIST=["width",
+         "height"]
 global TEXT_LIST
 TEXT_LIST = ["conky_value",
              "text",

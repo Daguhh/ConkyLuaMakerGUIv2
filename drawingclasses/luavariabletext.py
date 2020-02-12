@@ -105,25 +105,10 @@ class LuaVariableText(LuaGraph) :
         self.dct['from'] = (-x,y)
         p = tup_sum(p,(x,-y))
         self.pos = [int(p[0]), int(p[1])]
-#
-#    def draw(self, position) :
-#
-#        self.pos = position[0]
-#
-#        self.update()
-#
-#    def update(self) :
-#
-#        self.pos = tup_sum(self.pos, self.dct['from'])
-#        self.dct['from'] = (0,0)
-#
-#        myfont = pygame.font.SysFont(self.dct['font'],
-#                                     self.dct['font_size'])
-#        textsurface = myfont.render(self.dct['conky_value'],
-#                                    False,
-#                                    self.dct['color'])
-#        #textsurface.fill(pygame.Color('#77777799'))
-#        self.surface = pygame.transform.rotate(textsurface,
-#                                                self.dct['rotation_angle'])
-#        self.mask = pygame.mask.from_surface(self.surface)
-#
+
+    def resize(self, new_mouse_pos) :
+        vect = tup_dif(new_mouse_pos, self.pos)
+        norm = tup_norm(vect)
+        print(norm)
+        print(self.pos)
+        self.dct['font_size'] = int(norm/4)

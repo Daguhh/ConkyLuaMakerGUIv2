@@ -21,8 +21,12 @@ class LuaBarGraph(LuaGraph):
 
         self.draw_area = draw_area
         self.name = "bar_graph"
+        
         self.input_remaning = 2
         self.grid_step = 1
+        
+        self.mod_resize = "to"
+        self.mod_thickness = "bar_thickness"
 
         self.dct = {"kind" : 'bar_graph',
                     "from" : (0,0),
@@ -120,3 +124,5 @@ class LuaBarGraph(LuaGraph):
                                       poly)
         self.mask = pygame.mask.from_surface(self.surface)
 
+    def resize(self, new_mouse_pos) :
+        self.dct['to'] = tup_dif(new_mouse_pos,self.pos)

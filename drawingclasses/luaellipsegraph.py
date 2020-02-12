@@ -7,7 +7,7 @@
 
 import pygame
 import pygame_gui
-from math import pi
+from math import pi, atan, cos, sin
 
 
 from .parse_dct import lua2pil_dct, pil2lua_dct
@@ -84,7 +84,7 @@ class LuaEllipseGraph(LuaGraph) :
         g = self.grid_step
         c = (c[0]//g*g, c[1]//g*g)
         p = tup_dif(c,(w,h))
-        self.pos = (int(p[0]), int(p[1]))
+        self.pos = (p[0], p[1])
         c = (w,h)
         self.dct['center'] = c
 
@@ -105,3 +105,20 @@ class LuaEllipseGraph(LuaGraph) :
 
         self.mask = pygame.mask.from_surface(self.surface)
 
+    def resize(self, new_mouse_pos) :
+            center = tup_sum(self.dct["center"], self.pos)
+            x, y = tup_dif(new_mouse_pos, center)
+            a, b = self.dct['width'], self.dct['height']
+            if a != 0 and x != 0 and b != 0 and y!=0:
+                
+                if x >= 0 :
+                    angle = atan( (y/x) / (b/a) )
+                elif x < 0 :
+                    angle = pi + atan( (y/x) / (b/a) )
+            
+                print(angle*180/pi)
+                if angle != 0 and angle != 90 and angle != 180 and angle != 270 :
+                    self.dct['width'] = x/cos(angle)
+                    self.dct['height'] = y/sin(angle)
+                    #print('w : {}, h : {}'.format(self.dct['width'], self.dct['height']))
+                    pass

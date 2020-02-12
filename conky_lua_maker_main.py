@@ -80,6 +80,9 @@ def main() :
                         elif event.ui_element.text == "Generate luaconf" :
                             menupanel.gen_luaconf(drawings.liste)
 
+                        elif event.ui_element.text == "?" :
+                            menupanel.display_help()
+
                     elif event.ui_element.text == "Del" :
                         del(drawings.liste[drawings.selected_item])
                         del(selectpanel.drawing_name_list[drawings.selected_item])
@@ -111,6 +114,9 @@ def main() :
                         selectpanel.update_list([drawing.name for drawing in drawings.liste])
                         selectpanel.new_name_entry_box.set_text("Enter new name")
 
+                elif event.user_type == pygame_gui.UI_TEXT_BOX_LINK_CLICKED :
+                    print(event.link_target)
+                    menupanel.display_link(event.link_target)
             # Preview panel left click event
             elif left_click(event)\
                 and previewpanel.rect.collidepoint(mouse_pos) :
@@ -131,6 +137,9 @@ def main() :
                     if drawings.an_object_is_moving : # stop moving at click
                         drawings.liste[drawings.selected_item].is_moving = False
                         drawings.an_object_is_moving = False
+                    elif drawings.an_object_is_resizing :
+                        drawings.an_object_is_resizing = False
+                        drawings.liste[drawings.selected_item].is_resizing = False
                     else : # click on object => start moving
                         for i, drawing in enumerate(drawings.liste) :
                             test_pos = (int(pp_mouse_pos[0]-drawing.pos[0]),
@@ -147,6 +156,12 @@ def main() :
                                         drawing.is_moving = True
                                         drawings.an_object_is_moving = True
                                         break
+                                    elif keys[pygame.K_LSHIFT] :
+                                        mouse_pos_start = previewpanel.mouse_pos
+                                        drawing.is_resizing = True
+                                        drawings.an_object_is_resizing = True
+
+
 
 
             if drawings.buf.waiting_inputs\
@@ -158,7 +173,17 @@ def main() :
                     if drawing.is_moving :
                         drawing.pos = (drawing_pos_start[0] + (mouse_pos[0]-mouse_pos_start[0]),
                                    drawing_pos_start[1] + (mouse_pos[1]-mouse_pos_start[1]))
-                        drawing.update()
+#                        drawing.update()
+                        optionpanel.update_position(drawing.get_lua_dct())
+            if drawings.an_object_is_resizing :
+                for drawing in drawings.liste :
+                    if drawing.is_resizing :
+                        print('=======  dynamic resize  ====================')
+                        drawing.resize(previewpanel.mouse_pos)
+
+                        #drawing.pos = (drawing_pos_start[0] + (mouse_pos[0]-mouse_pos_start[0]),
+                        #           drawing_pos_start[1] + (mouse_pos[1]-mouse_pos_start[1]))
+#                        drawing.update()
                         optionpanel.update_position(drawing.get_lua_dct())
 
             manager.process_events(event)

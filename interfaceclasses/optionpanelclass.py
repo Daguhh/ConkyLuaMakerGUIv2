@@ -59,16 +59,24 @@ class OptionPanel:
 
     def update_position(self, dct) :
 
-        buttons_name = [b.text for b in self.labels]
+        name = [b.text for b in self.labels]
         if "center" in dct :
-            ind = buttons_name.index("center")
+            ind = name.index("center")
             self.entrys[ind].set_text(dct["center"])
         if "from" in dct :
-            ind = buttons_name.index("from")
+            ind = name.index("from")
             self.entrys[ind].set_text(dct["from"])
         if "to" in dct :
-            ind = buttons_name.index("to")
+            ind = name.index("to")
             self.entrys[ind].set_text(dct["to"])
+        if "width" in dct :
+            ind = name.index("width")
+            self.entrys[ind].set_text(dct["width"])
+        if "height" in dct :
+            ind = name.index("height")
+            self.entrys[ind].set_text(dct["height"])
+
+
 
     def update_lua_dct(self, dct) :
 
