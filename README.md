@@ -9,7 +9,7 @@ written in python3 using :
 developped and tested on debian gnu/linux only
 (uglier but better version than the last one)
 
-![alt text](Example/Screenshot_20200208.png)
+![alt text](Example/Screenshot_2.png)
 
 Usage :
 
