@@ -1,1 +1,4 @@
-add a "magnetic" grid = corse grid
+add a button to clone graph
+make a dynamically sizable interface
+add possibility to change defaùlt value
+try to blit only interface area that effectively changed

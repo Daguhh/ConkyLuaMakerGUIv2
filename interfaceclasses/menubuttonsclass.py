@@ -72,8 +72,8 @@ class MenuButtons :#(ConkyLuaMaker_HelpClass) :
 
     def gen_luaconf(self, draw_lst):
         text="elements = {\n"
-        for draw in draw_lst :
-            text += '-- {}\n'.format(draw.name)
+        for name, draw in draw_lst.items() :
+            text += '-- {}\n'.format(name)
             text += '{\n'
             dct = pil2lua_dct(draw.dct, draw.pos)
             for k,v in dct.items() :

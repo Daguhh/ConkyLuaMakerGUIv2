@@ -48,7 +48,9 @@ class PreviewPanel:
 
     @property
     def grid_size(self):
-        return int(self.grid_step_slider.get_current_value())
+        grid_size = self.grid_step_slider.get_current_value()
+        self.grid_step_label.set_text(self.grid_size_text.format(grid_size))
+        return int(grid_size)
 
     @grid_size.setter
     def grid_size(self, grid_size) :
@@ -57,6 +59,7 @@ class PreviewPanel:
         self.grid_step_label.set_text(self.grid_size_text.format(grid_size))
 
     def grid_size_as_changed(self) :
+
         grid_size = self.grid_size
         if self.prev_size != grid_size :
             self.prev_size == grid_size

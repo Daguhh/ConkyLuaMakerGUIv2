@@ -77,16 +77,6 @@ class OptionPanel:
                 ind = name.index(key)
                 self.entrys[ind].set_text(str(dct[key]))
 
-#        if "width" in dct :
-#            ind = name.index("width")
-#            self.entrys[ind].set_text(dct["width"])
-#        if "height" in dct :
-#            ind = name.index("height")
-#            self.entrys[ind].set_text(dct["height"])
-#        if "radius" in dct
-#
-
-
     def update_lua_dct(self, dct) :
 
         #print('update!!!!!!!!!!!!!!!!')

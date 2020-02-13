@@ -98,7 +98,7 @@ def main() :
 
                     elif event.ui_element == selectpanel.new_name_entry_box :
                         new_name = selectpanel.new_name_entry_box.get_text()
-                        drawings.objects[new_name] = drawings.objects.pop(drawings.selected_item)
+                        drawings.objects[new_name] = drawings.objects.pop(drawings.selected_item_ID)
                         selectpanel.current_selection = new_name
                         selectpanel.update_list(list(drawings.objects.keys()))
                         selectpanel.new_name_entry_box.set_text("Rename")
@@ -189,10 +189,11 @@ def main() :
 
 
 def left_click(event) :
-    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 :
-        return True
-    else :
-        return False
+    return event.type == pygame.MOUSEBUTTONDOWN and event.button == 1
+#    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 :
+#        return True
+#    else :
+#        return False
 
 class Timer():
     def __init__(self):
