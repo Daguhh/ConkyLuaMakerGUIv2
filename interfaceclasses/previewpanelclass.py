@@ -16,7 +16,7 @@ class PreviewPanel:
         self.size = PP_SIZE
         self.color = PP_COLOR
         self.pos = PP_POS
-        self.grid_size = 20
+        self.prev_size = 20
 
         self.background = pygame.Surface(self.size, pygame.SRCALPHA)
         self.background.fill(self.color)
@@ -33,7 +33,7 @@ class PreviewPanel:
         rect = pygame.Rect((180,610),(300,20))
         self.grid_step_slider = pygame_gui.elements.UIHorizontalSlider(
                 rect,
-                self.grid_size,
+                self.prev_size,
                 (1,60),
                 manager)
 
@@ -46,12 +46,16 @@ class PreviewPanel:
 
         #self.show_grid()
 
-    def set_grid_size(self, grid_size) :
+    @property
+    def grid_size(self):
+        return int(self.grid_step_slider.get_current_value())
 
-        self.grid_step_slider.current_value=grid_size
+    @grid_size.setter
+    def grid_size(self, grid_size) :
+
+        self.grid_step_slider.current_value = grid_size
         self.grid_step_label.set_text(self.grid_size_text.format(grid_size))
 
-    @property
     def grid_size_as_changed(self) :
         if self.prev_size != self.grid_size :
             self.prev_size == self.grid_size

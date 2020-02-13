@@ -10,7 +10,8 @@ class LuaGraph:
         self.pos = (0,0)
         self.is_moving = False
         self.is_resizing = False
-        self.position_list=[]
+#        self.position_list=[]
+        self.grid_step = 1
 
     def get_lua_dct(self) :
         return pil2lua_dct(self.dct, self.pos)
@@ -27,7 +28,7 @@ class LuaGraph:
         try :
             self.update()
         except ValueError as err :
-            print('{} : thickness > radius\n you should give a larger value\n put your mouse away'.format(err)) 
+            print('{} : thickness > radius\n you should give a larger value\n put your mouse away'.format(err))
         self.draw_area.blit(self.surface,self.pos)
 
 

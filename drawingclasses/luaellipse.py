@@ -105,7 +105,7 @@ class LuaEllipse(LuaGraph) :
             elif x < 0 :
                 angle = pi + atan( (y/x) / (b/a) )
         
-            print(angle*180/pi)
+            #print(angle*180/pi)
             if angle != 0 and angle != 90 and angle != 180 and angle != 270 :
                 self.dct['width'] = x/cos(angle)
                 self.dct['height'] = y/sin(angle)

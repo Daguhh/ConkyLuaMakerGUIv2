@@ -109,6 +109,4 @@ class LuaVariableText(LuaGraph) :
     def resize(self, new_mouse_pos) :
         vect = tup_dif(new_mouse_pos, self.pos)
         norm = tup_norm(vect)
-        print(norm)
-        print(self.pos)
         self.dct['font_size'] = int(norm/4)

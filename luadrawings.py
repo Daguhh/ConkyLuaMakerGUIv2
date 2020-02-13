@@ -19,45 +19,33 @@ class LuaDrawings :
     """ Save all drawings in a list """
     def __init__(self, draw_area) :
         self.draw_area = draw_area
-        self.liste = []
+        #self.liste = []
 
         self.buf = NewObjectBuffer()
 
         self.an_object_is_moving = False
         self.an_object_is_resizing = False
 
-        self.selected_item = 0
+        self._selected_item_ID = 0
 
-    def create_from_dct(self, dct, name) :
+        self.objects = {}
 
-        #print('creating form dict')
-        #print(dct['kind'])
+        self.id_gen = self.gen_id()
 
-        kind = dct['kind']#[1:-1]
-        #print(kind)
-        if kind == 'ring_graph' :
-            drawing = LuaRingGraph(self.draw_area)
-        elif kind == 'ellipse_graph' :
-            drawing = LuaEllipseGraph(self.draw_area)
-        elif kind == 'bar_graph' :
-            drawing = LuaBarGraph(self.draw_area)
-        elif kind == 'variable_text' :
-            drawing = LuaVariableText(self.draw_area)
-        elif kind == 'ring' :
-            drawing = LuaRing(self.draw_area)
-        elif kind == 'ellipse' :
-            drawing = LuaEllipse(self.draw_area)
-        elif kind ==  'line' :
-            drawing = LuaLine(self.draw_area)
-        elif kind ==  'static_text' :
-            #print('mlmlmlml')
-            drawing = LuaStaticText(self.draw_area)
+    @property
+    def selected_draw(self) :
+        return self.objects[self._selected_item_ID]
 
-        drawing.name = name
-        drawing.dct = dct
-        self.liste.append(drawing)
+    @property
+    def selected_item_ID(self) :
+        return self._selected_item_ID
 
-    def create(self, kind) :
+    @selected_item_ID.setter
+    def selected_item_ID(self, ID) :
+        self._selected_item_ID = ID
+
+    def _get_draw_class(self, kind) :
+
         if kind == 'ring_graph' :
             drawing = LuaRingGraph(self.draw_area)
         elif kind == 'ellipse_graph' :
@@ -75,30 +63,48 @@ class LuaDrawings :
         elif kind ==  "static_text" :
             drawing = LuaStaticText(self.draw_area)
 
+        return drawing
+
+    def create_from_dct(self, dct, name) :
+
+        kind = dct['kind']#[1:-1]
+        drawing = self._get_draw_class(kind)
+        drawing.dct = dct
+
+        self.objects[name] = drawing
+
+    def create(self, kind) :
+
+        drawing = self._get_draw_class(kind)
+
         self.buf.set_drawing(drawing)
 
     def draw_from_buffer(self) :
-        #drawing = self.buf.drawing
-        #drawing.draw(self.buf.inputs_pos)
+
         self.buf.draw()
-        self.liste.append(self.buf.drawing)
+        name = self.buf.drawing.dct['kind'] + self.id_gen.__next__()
+        self.objects[name] = self.buf.drawing
         self.buf.clear()
 
     def preview_from_buffer(self, mouse_pos) :
 
         self.buf.draw(mouse_pos)
 
-    def get_dict_from_name(self, name) :
-        for i, drawing in enumerate(self.liste) :
-            if drawing.name == name :
-                self.selected_item = i
+    def get_dict_from_name(self, item_name) :
+        for name, drawing in enumerate(self.objects) :
+            if name == item_name :
+                self.selected_item = name
                 return drawing.get_lua_dct()
 
     def rename_draw(self, new_name) :
 
-        self.liste[self.selected_item] = new_name
+        self.selected_item = new_name
 
-#        return self.liste[0].name
+    def gen_id(self) :
+        i = 0
+        while True :
+            i += 1
+            yield '_#{}'.format(i)
 
 
 class NewObjectBuffer :
@@ -123,7 +129,7 @@ class NewObjectBuffer :
     def draw(self, mouse_pos=(0,0)) :
 
         #if not self.inputs_pos == 0 :
-        if self.input_remaning == 2 :
+        if self.input_remaning >= 2 :
             pass
         elif self.input_remaning == 1 :
             fake_inputs = self.inputs_pos.copy()

@@ -22,7 +22,7 @@ class LuaRing(LuaGraph) :
         self.draw_area = draw_area
         self.grid_step = 1
 
-        self.name = "ring_graph"
+        self.name = "ring"
         self.input_remaning = 2
 
         self.dct = {

@@ -1,5 +1,1 @@
-add a button to clone graph
-automatically name graph at creation and handle name conflict
-make a dynamically sizable interface
-add possibility to change defaùlt value
-try to blit only interface area that effectively changed
+add a "magnetic" grid = corse grid
