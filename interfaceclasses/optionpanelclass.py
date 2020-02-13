@@ -60,22 +60,31 @@ class OptionPanel:
     def update_position(self, dct) :
 
         name = [b.text for b in self.labels]
-        if "center" in dct :
-            ind = name.index("center")
-            self.entrys[ind].set_text(dct["center"])
-        if "from" in dct :
-            ind = name.index("from")
-            self.entrys[ind].set_text(dct["from"])
-        if "to" in dct :
-            ind = name.index("to")
-            self.entrys[ind].set_text(dct["to"])
-        if "width" in dct :
-            ind = name.index("width")
-            self.entrys[ind].set_text(dct["width"])
-        if "height" in dct :
-            ind = name.index("height")
-            self.entrys[ind].set_text(dct["height"])
+        position_keys = ["center","from","to"]
 
+        for key in position_keys :
+            if key in dct :
+                ind = name.index(key)
+                self.entrys[ind].set_text(str(dct[key]))
+
+    def update_size(self, dct) :
+
+        name = [b.text for b in self.labels]
+        position_keys = ["width","height","radius"]
+
+        for key in position_keys :
+            if key in dct :
+                ind = name.index(key)
+                self.entrys[ind].set_text(str(dct[key]))
+
+#        if "width" in dct :
+#            ind = name.index("width")
+#            self.entrys[ind].set_text(dct["width"])
+#        if "height" in dct :
+#            ind = name.index("height")
+#            self.entrys[ind].set_text(dct["height"])
+#        if "radius" in dct
+#
 
 
     def update_lua_dct(self, dct) :

@@ -57,8 +57,10 @@ class PreviewPanel:
         self.grid_step_label.set_text(self.grid_size_text.format(grid_size))
 
     def grid_size_as_changed(self) :
-        if self.prev_size != self.grid_size :
-            self.prev_size == self.grid_size
+        grid_size = self.grid_size
+        if self.prev_size != grid_size :
+            self.prev_size == grid_size
+            self.grid_step_label.set_text(self.grid_size_text.format(grid_size))
             return True
         else :
             return False

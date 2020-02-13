@@ -164,7 +164,7 @@ def main() :
 
             elif drawings.an_object_is_resizing :
                 drawings.selected_draw.resize(previewpanel.mouse_pos)
-                optionpanel.update_position(drawings.selected_draw.get_lua_dct())
+                optionpanel.update_size(drawings.selected_draw.get_lua_dct())
                 update_graph = 2
 
             manager.process_events(event)
