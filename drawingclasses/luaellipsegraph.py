@@ -110,15 +110,12 @@ class LuaEllipseGraph(LuaGraph) :
             x, y = tup_dif(new_mouse_pos, center)
             a, b = self.dct['width'], self.dct['height']
             if a != 0 and x != 0 and b != 0 and y!=0:
-                
+
                 if x >= 0 :
                     angle = atan( (y/x) / (b/a) )
                 elif x < 0 :
                     angle = pi + atan( (y/x) / (b/a) )
-            
-                print(angle*180/pi)
+
                 if angle != 0 and angle != 90 and angle != 180 and angle != 270 :
                     self.dct['width'] = x/cos(angle)
                     self.dct['height'] = y/sin(angle)
-                    #print('w : {}, h : {}'.format(self.dct['width'], self.dct['height']))
-                    pass

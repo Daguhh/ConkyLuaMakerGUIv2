@@ -42,6 +42,8 @@ class LuaDrawings :
 
     @selected_item_ID.setter
     def selected_item_ID(self, ID) :
+        print('--------------- SETTING ID------------------------')
+        print('id = ',ID)
         self._selected_item_ID = ID
 
     def _get_draw_class(self, kind) :

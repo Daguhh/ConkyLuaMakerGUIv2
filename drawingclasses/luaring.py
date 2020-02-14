@@ -44,7 +44,6 @@ class LuaRing(LuaGraph) :
         to = positions[1]
         r = int(((center[0]-to[0])**2 + (center[1]-to[1])**2)**0.5)
         self.pos = (center[0]-r, center[1]-r)
-        print('position = ', self.pos)
         center = (r,r)
 
         self.dct['center'] = center

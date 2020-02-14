@@ -37,7 +37,6 @@ class SelectPanel:
     def update_list(self, liste) :
 
         self.dropdown.kill()
-        print(liste)
         self.drawing_name_list = liste
         self.dropdown = pygame_gui.elements.UIDropDownMenu(
             self.drawing_name_list,

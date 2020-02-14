@@ -11,8 +11,6 @@ Created on Tue Jan  9 14:10:20 2018
 def lua2pil_dct(lua_dct, pos):
     pil_dct = {}
     for k, v in lua_dct.items() :
-        #print("A^^^^^^^^^^^^^^^^^^^^^^^^^^^A")
-        #print(k,v)
         try :
             if k in INT_LIST     : v = int(v)
             elif k in FLOAT_LIST : v = float(v)
@@ -41,19 +39,12 @@ def lua2pil_dct(lua_dct, pos):
             print('value for {} is a {}'.format(k,type(v)))
             print('value has not been changed\nplease change the it\nor reload object(left click on preview)')
             pil_dct[''] = ''
-#        else :
-#            print('nul!!!!!!!!!!!!!!!')
-#        except :
-#            print('except')
-
 
     return pil_dct
 
 def pil2lua_dct(pil_dct, pos):
     lua_dct={}
     for k, v in pil_dct.items() :
-#        print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-#        print(k,v)
         try :
             if k in INT_LIST     : pass
             elif k in FLOAT_LIST : pass
@@ -121,7 +112,6 @@ ANGLE_LIST = ["start_angle",
 def lua2pil_color(lua_color) :
 
     lua_color = lua_color[1:-1]
-    #print(lua_color)
 
     ind = [slice(2*n, 2*n+2) for n in range(1,4)]
     pil_color = tuple([int(lua_color[i],16) for i in ind])

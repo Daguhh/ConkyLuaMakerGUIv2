@@ -34,10 +34,3 @@ def tup_abs(u) :
 def tup_norm(u) :
     return (sum(tuple([ux**2 for ux in u])))**0.5
 
-#n = (0,0,1)
-
-#u = (-3,2,0)
-
-#w = vect_product(u,n)
-#print(w)
-

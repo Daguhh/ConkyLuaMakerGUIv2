@@ -23,12 +23,12 @@ class PreviewPanel:
 
         self.rect = self.background.get_rect(topleft=self.pos)
 
-        self._mouse_pos = self.pos
-        rect = MP_RECT
-        self.mouse_label=pygame_gui.elements.UILabel(
-                relative_rect = rect,
-                text="mouse_pos",
-                manager = manager)
+#        self._mouse_pos = self.pos
+#        rect = MP_RECT
+#        self.mouse_label=pygame_gui.elements.UILabel(
+#                relative_rect = rect,
+#                text="mouse_pos",
+#                manager = manager)
 
         rect = pygame.Rect((180,610),(300,20))
         self.grid_step_slider = pygame_gui.elements.UIHorizontalSlider(
@@ -90,17 +90,17 @@ class PreviewPanel:
                                 (self.size[0], step),
                                 1)
 
-    @property
-    def mouse_pos(self) :
-        return self._mouse_pos
-
-    @mouse_pos.setter
-    def mouse_pos(self, pos) :
-        step = int(self.grid_step_slider.get_current_value())
-        self._mouse_pos = ((pos[0] - self.pos[0])//step*step,
-                           (pos[1] - self.pos[1])//step*step)
-        self.mouse_label.set_text('mouse position = {}'.format(self._mouse_pos))
-        #print(self._mouse_pos)
+#    @property
+#    def mouse_pos(self) :
+#        return self._mouse_pos
+#
+#    @mouse_pos.setter
+#    def mouse_pos(self, pos) :
+#        step = int(self.grid_step_slider.get_current_value())
+#        self._mouse_pos = ((pos[0] - self.pos[0])//step*step,
+#                           (pos[1] - self.pos[1])//step*step)
+#        self.mouse_label.set_text('mouse position = {}'.format(self._mouse_pos))
+#        #print(self._mouse_pos)
 
     def blit(self) :
 
@@ -111,3 +111,34 @@ class PreviewPanel:
     def clear(self) :
 
         self.background.fill(self.color)
+
+
+#
+#
+#
+#        self._mouse_pos = self.pos
+#        rect = MP_RECT
+#        self.mouse_label=pygame_gui.elements.UILabel(
+#                relative_rect = rect,
+#                text="mouse_pos",
+#                manager = manager)
+#
+#
+#
+#    @property
+#    def mouse_pos(self) :
+#        return self._mouse_pos
+#
+#    @mouse_pos.setter
+#    def mouse_pos(self, pos) :
+#        step = int(self.grid_step_slider.get_current_value())
+#        self._mouse_pos = ((pos[0] - self.pos[0])//step*step,
+#                           (pos[1] - self.pos[1])//step*step)
+#        self.mouse_label.set_text('mouse position = {}'.format(self._mouse_pos))
+#        #print(self._mouse_pos)
+#
+#    def blit(self) :
+#
+#        self.show_grid()
+#        self.grid_step_label.set_text(self.grid_size_text.format(int(self.grid_step_slider.get_current_value())))
+#        self.parent.blit(self.background, self.pos)

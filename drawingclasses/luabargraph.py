@@ -21,10 +21,10 @@ class LuaBarGraph(LuaGraph):
 
         self.draw_area = draw_area
         self.name = "bar_graph"
-        
+
         self.input_remaning = 2
         self.grid_step = 1
-        
+
         self.mod_resize = "to"
         self.mod_thickness = "bar_thickness"
 
@@ -56,7 +56,6 @@ class LuaBarGraph(LuaGraph):
 
     def draw(self, positions) :
 
-        #print("set position :", positions)
         self.dct['from'] = positions[0]
         self.dct['to'] = positions[1]
 
@@ -66,7 +65,6 @@ class LuaBarGraph(LuaGraph):
         p = (0,0)
         of = self.dct['bar_thickness']*1
 
-        #print('draw : h:{}, f:{}, t:{}, p:{}, of:{}'.format(h,f,t,p,of))
 
         f = tup_sum(f,p)
         t = tup_sum(t,p)
@@ -86,8 +84,6 @@ class LuaBarGraph(LuaGraph):
         t = self.dct['to']
         p = self.pos
         of = self.dct['bar_thickness']*1
-
-        #print('upda : h:{}, f:{}, t:{}, p:{}, of:{}'.format(h,f,t,p,of))
 
         f = tup_sum(f,p)
         t = tup_sum(t,p)

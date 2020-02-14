@@ -98,19 +98,12 @@ class LuaStaticText(LuaGraph) :
             y = sh
 
         x, y = int(x) , int(y)
-        #print(g)
-        #x = x//g*g
-        #y = y//g*g
 
         self.dct['from'] = (-x,y)
         p = tup_sum(p,(x,-y))
-        #print(p)
-        #print(-x,y)
         self.pos = [int(p[0]), int(p[1])]
 
     def resize(self, new_mouse_pos) :
         vect = tup_dif(new_mouse_pos, self.pos)
         norm = tup_norm(vect)
-        #print(norm)
-        #print(self.pos)
         self.dct['font_size'] = int(norm/4)
