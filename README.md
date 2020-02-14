@@ -4,7 +4,7 @@
 This is a python interactive interface to create a Lua configuration file for (the amazing) https://github.com/fisadev/conky-draw. 
 
 ### Functionnalities :
-1. all conky-draw "shapes" are supported, 
+1. all conky-draw "shapes" are supported :
       * draw them with a few mouse button hit
       * move them, resize them with mouse, change their properties with entries boxes 
       * delete them
