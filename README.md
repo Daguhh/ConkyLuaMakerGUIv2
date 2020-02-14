@@ -1,7 +1,11 @@
 # ConkyLuaMakerGUIv2
 
 ### Purpose 
-This is a python GUI to create a Lua conf file for https://github.com/fisadev/conky-draw. 
+This is a python GUI to create a Lua configuration file for https://github.com/fisadev/conky-draw. 
+
+I was wondering how to make some conky as nice as those you can see on the internet, then I find the awesome conky-draw project, that permit me to that. It's quite easy to configure it, but I find it time consuming to build a configuration file. 
+So I made this interactive pygame gui to build your conky with the mouse and easily modify draw parameters adn then generate the configuration file. 
+Here is the purpose of conky-draw :
 
 > conky-draw
 >
@@ -9,15 +13,38 @@ This is a python GUI to create a Lua conf file for https://github.com/fisadev/co
 >
 > The main idea is this: stop copying and pasting random code from the web to your monolithic conkyrc + something.lua. Start using a nicely defined set of visual elements, in a very clean config file, separated from the code that has the drawing logic. "You ask, conky_draw draws".
 
+### Example
+![alt text](Example/Screenshot_2.png)
 
-written in python3 using : 
+### Functionnalities :
+Here are some "properties" the gui :
+1. all conky-draw "shapes" are supported, 
+      * draw them with a few mouse button hit
+      * move them, resize them with mouse, change their properties with entries boxes 
+      * delete them
+2. generate and reload your configuration file in one button hit
+3. place objects on a resizable magnetic grid (kind of)
+4. select your drawing with a dropdown menu, rename objects to find them more easily
+
+I have still some issues on converting position from pygame to what is gives in lua
+
+### How to run it ?
+It use python3 and you need to install few requirements :
+
+  ```bash
+  pip3 install -r requirements.txt
+  ```
+will install  : 
   - pygame (pygame.draw)
   - pygame-gui
 
+then just run
+  ```bash
+  python3 conky_lua_maker_main.py
+  ```
 > developped and tested on debian gnu/linux only
 
-### Example
-![alt text](Example/Screenshot_2.png)
+
 
 ### Install and run
 
