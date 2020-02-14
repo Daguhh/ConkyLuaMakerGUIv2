@@ -1,17 +1,28 @@
 # ConkyLuaMakerGUIv2
 
-A python GUI to create a Lua conf file for https://github.com/fisadev/conky-draw
+### Purpose 
+This is a python GUI to create a Lua conf file for https://github.com/fisadev/conky-draw. 
+
+> conky-draw
+>
+> Easily create beautiful conky graphs and drawings.
+>
+> The main idea is this: stop copying and pasting random code from the web to your monolithic conkyrc + something.lua. Start using a nicely defined set of visual elements, in a very clean config file, separated from the code that has the drawing logic. "You ask, conky_draw draws".
+
 
 written in python3 using : 
   - pygame (pygame.draw)
   - pygame-gui
 
-developped and tested on debian gnu/linux only
-(uglier but better version than the last one)
+> developped and tested on debian gnu/linux only
 
+### Example
 ![alt text](Example/Screenshot_2.png)
 
+### Install and run
+
 Usage :
+
 
     0) run : "python3 conky_lua_maker_main.py"
 
