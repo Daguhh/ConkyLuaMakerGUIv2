@@ -46,22 +46,22 @@ then just run
     
 ##### 2.1 Select an object :
       
-      Selecting an object means that : 
-            - its name will appear on the dropdown list button
-            - its properties will be displayed on the property list panel
-            - the delete button will delete it.
-               
-      There is 3 ways to select an object :
-            - a newly created object is automaticaly selected 
-            - on preview panel with left mouse button hit
-            - with the dropdown menu (top right of the interface)
+           Selecting an object means that : 
+                 - its name will appear on the dropdown list button
+                 - its properties will be displayed on the property list panel
+                 - the delete button will delete it.
+
+           There is 3 ways to select an object :
+                 - a newly created object is automaticaly selected 
+                 - on preview panel with left mouse button hit
+                 - with the dropdown menu (top right of the interface)
     
 ##### 2.2 Edit object properties (right panel) :
-      to modify a drawing property, you can :
-          - change a value in the property list and hit enter
-          - grab an object on the preview panel :
-               left_ctrl + left mouse button = move
-               left_shift + left mouse button = resize
+           to modify a drawing property, you can :
+               - change a value in the property list and hit enter
+               - grab an object on the preview panel :
+                    left_ctrl + left mouse button = move
+                    left_shift + left mouse button = resize
                
 ##### 2.3 Other properties and interactions :
           - del button will delete selecteed graph (can't be undone)
@@ -75,12 +75,13 @@ then just run
 </sub>             
                  
 ##### 3) Saving and Loading configuration files :
-      On the top bar of the interface you get some menu buttons (no a lot yet, I know) :
-        - "Generate Lua Conf" button will create the configuration file : 
-               "conky_draw_config.lua" needed in fisadev/conky-draw project 
-        - "Load" will read this same file and create a preview from it, 
-                that you can continue tu edit it later.
-        - "?" will display a little reminder on how the gui works
+
+           On the top bar of the interface you get some menu buttons (no a lot yet, I know) :
+             - "Generate Lua Conf" button will create the configuration file : 
+                    "conky_draw_config.lua" needed in fisadev/conky-draw project 
+             - "Load" will read this same file and create a preview from it, 
+                     that you can continue tu edit it later.
+             - "?" will display a little reminder on how the gui works
       
 
 ###### Notes :
