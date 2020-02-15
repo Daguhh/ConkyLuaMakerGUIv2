@@ -66,20 +66,13 @@ then just run
 ##### 2.3 Other properties and interactions :
           - del button will delete selecteed graph (can't be undone)
           - all drawing have an intrinsic "grid size" value, 
-</sub>
 
-                 This value (in pixel) is the size of the "magnetic grid", objects will act
-                 as they see a lower resolutions grid (corresponding to the "tiles" you see)
-                 Objects will stick to their top-left corner. 
-                 This resolution can be changed with the slider and will be applied to the currently selected object
-                 any new created graph will take as grid.size the slider value a the moment of creation.
-                 As it is an intrinsic value, 
-                 next time you select the object, no matter what you've done in between, 
-                 grid will come back to it's resolution value.
+
+                 This value (in pixel) is the size of the "magnetic grid", objects will act as they see a lower resolutions grid (corresponding to the "tiles" you see)
+                 Objects will stick to their top-left corner.This resolution can be changed with the slider and will be applied to the currently selected object and any new created graph will take as grid.size the slider value a the moment of creation.
+                 As it is an intrinsic value, next time you select the object, no matter what you've done in between, grid will come back to it's resolution value.
                  
-</sub>
-
-
+                 
 ##### 3) Saving and Loading configuration files :
       On the top bar of the interface you get some menu buttons (no a lot yet, I know) :
         - "Generate Lua Conf" button will create the configuration file : 
