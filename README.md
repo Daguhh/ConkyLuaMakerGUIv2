@@ -69,7 +69,8 @@ then just run
 </sub>
 
                  This value (in pixel) is the size of the "magnetic grid", objects will act as they see a lower resolutions grid (corresponding to the "tiles" you see)
-                 Objects will stick to their top-left corner.This resolution can be changed with the slider and will be applied to the currently selected object and any new created graph will take as grid.size the slider value a the moment of creation.
+                 Objects will stick to their top-left corner.This resolution can be changed with the slider and will be applied to the currently selected object 
+                 and any new created graph will take as grid.size the slider value a the moment of creation.
                  As it is an intrinsic value, next time you select the object, no matter what you've done in between, grid will come back to it's resolution value.
 </sub>             
                  
