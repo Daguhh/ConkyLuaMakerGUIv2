@@ -36,14 +36,16 @@ then just run
 
 ### Usage :
 
-     1. Create a new object (ring graph, bar graph, text) :
+##### 1 Create a new object (ring graph, bar graph, text) :
+     
         - hit a button on the left panel
         - programm now wait for an input on the preview area to start drawing
       
           => then, you should see the dropdown list and the properties list update (on the right panel)
              you can repeat the step many times as you want
     
-       2.1) Select an object :
+##### 2.1 Select an object :
+      
       Selecting an object means that : 
             - its name will appear on the dropdown list button
             - its properties will be displayed on the property list panel
@@ -54,14 +56,14 @@ then just run
             - on preview panel with left mouse button hit
             - with the dropdown menu (top right of the interface)
     
-      2.2) Edit object properties (right panel) :
+##### 2.2 Edit object properties (right panel) :
       to modify a drawing property, you can :
           - change a value in the property list and hit enter
           - grab an object on the preview panel :
                left_ctrl + left mouse button = move
                left_shift + left mouse button = resize
                
-     2.3 Other properties and interactions :
+##### 2.3 Other properties and interactions :
           - del button will delete selecteed graph (can't be undone)
           - all drawing have an intrinsic "grid size" value, 
           
@@ -71,7 +73,7 @@ then just run
                  next time you select the object, no matter what you've done in between, 
                  grid will come back to it's resolution value.
 
-       3) Saving and Loading configuration files :
+##### 3) Saving and Loading configuration files :
       On the top bar of the interface you get some menu buttons (no a lot yet, I know) :
         - "Generate Lua Conf" button will create the configuration file : 
                "conky_draw_config.lua" needed in fisadev/conky-draw project 
