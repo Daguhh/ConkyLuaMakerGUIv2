@@ -2,6 +2,55 @@
 #-*- coding: utf-8 -*-
 
 """
+Prupose :
+=======
+
+This is a python interactive interface to create a conky. Purpose is to easely
+draw shapes (ring, bar, text) and then generate a Lua configuration file for
+https://github.com/fisadev/conky-draw. See more in README about goal and usage.
+
+Program principle :
+=================
+
+Main idea of this program consist on:
+    - a module containing all possible drawing definitions
+    - on a module containing all interface elements (see Interface preview),
+
+At main_interface init, it create all interface elements, and create an object
+from ::luadrawings:: class that will create new drawings and store them in a dict
+At each loop it checks if there is any interaction with interface elements,
+if yes, it execute a main_interface method. A majority of those methods change
+a property of a drawing, those changes will also call (update values) other
+interface elements.
+
+At the loop end, it will loop over drawings dict to update the conky preview.
+
+
+Interface preview :
+=================
+______________________________________________________________________
+|                                                |                   |
+|                Menu Panel                      |      Select       |
+|________________________________________________|       Panel       |
+|   |  ________________________________________  |                   |
+| C | |                                        | |___________________|
+| h | |                                        | |                   |
+| o | |                                        | |                   |
+| i | |                                        | |                   |
+| c | |                                        | |                   |
+| e | |                                        | |      Option       |
+|   | |           Preview Panel                | |       Panel       |
+| B | |                                        | |                   |
+| u | |                                        | |                   |
+| t | |                                        | |                   |
+| t | |                                        | |                   |
+| o | |                                        | |                   |
+| n | |                                        | |                   |
+| s | |_______________________________________ | |                   |
+|   |____________________________________________|                   |
+|   |                                            |                   |
+|   |           Slider + Mouse display           |                   |
+|___|____________________________________________|___________________|
 
 """
 
@@ -15,21 +64,25 @@ from luadrawings import LuaDrawings
 
 
 class main_interface :
+    """ j'en sais rien du tout moi """
 
     def __init__(self) :
+        """
+        Initiate pygame
+        Initiate interface elements
+        Create an LuaDrawings object that create and store drawings
+        """
 
         pygame.init()
-
         pygame.display.set_caption('ConkyLuaMakerGui')
 
         self.window_surface = pygame.display.set_mode(INTERFACE_SIZE)
         self.manager = pygame_gui.UIManager(INTERFACE_SIZE, 'themes/label_theme.json')
 
+        # Inferface init
         self.background = pygame.Surface(INTERFACE_SIZE)
         self.background.fill(pygame.Color('#222222'))
-        self.window_surface.blit(self.background, (0, 0))
 
-        # Inferface init
         self.menupanel = MenuButtons(self.manager)
         self.previewpanel = PreviewPanel(self.window_surface, self.manager)
         self.choicepanel = ChoiceButtonPanel(self.window_surface, self.manager)
@@ -42,10 +95,15 @@ class main_interface :
         self.clock = pygame.time.Clock()
         self.timer = Timer()
 
-        self.update_graph = 2
+        self.update_graph = 2 # update graph during 2 loops after interfaction (unkown bug prevention)
         self.mouse = Mouse(self.manager, self.window_surface,  self.previewpanel.rect)
 
     def loop(self) :
+        """
+        main interface loop :
+        check for interactions with interface and run methods
+        """
+
         is_running = True
         while is_running:
             time_delta = self.clock.tick(15)/1000.0
@@ -126,11 +184,19 @@ class main_interface :
             pygame.display.update()
 
     def create_new_draw(self, ui_element) :
+        """
+        Init new draw creation from user choice,
+        inteface will now look for previewpanel interactions
+        """
 
         ID = self.choicepanel.get_name(ui_element)
         self.drawings.create(ID)
 
     def load_conf_file(self) :
+        """
+        load "conky_draw_config.lua" and convert into drawing properties dict,
+        and create a new drawing from it.
+        """
 
         dct_list = self.menupanel.load()
         for ID, dct in dct_list.items() :
@@ -138,29 +204,50 @@ class main_interface :
             self.selectpanel.update_list(list(self.drawings.objects.keys()))
 
     def generate_conf_file(self) :
+        """
+        Convert all drawings properties dict into lua configuration file
+        format and save it to "conky_draw_config.lua"
+        """
 
         self.menupanel.gen_luaconf(self.drawings.objects)
 
     def show_help(self) :
+        """
+        display a tiny help popup
+        """
 
         self.menupanel.display_help()
 
     def delete_selected_object(self) :
+        """
+        remove a drawing for drawings dict by it's key
+        """
 
+        # delete object by it's key
         del(self.drawings.objects[self.drawings.selected_item_ID])
+        # set selection on the last drawing in the dict
+        self.drawings.selected_item_ID = list(self.drawings.objects.keys())[-1]
+        # update dropdown menu (remove name, update list, update selection)
         self.selectpanel.drawing_name_list.remove(self.drawings.selected_item_ID)
         self.selectpanel.update_list(list(self.drawings.objects.keys()))
-        self.drawings.selected_item_ID = list(self.drawings.objects.keys())[-1]
         self.selectpanel.current_selection = self.drawings.selected_item_ID
+        # update option panel and show properties of newly selected object
         self.optionpanel.update_lua_dct(self.drawings.selected_draw.get_lua_dct())
 
     def change_grid_size(self) :
+        """
+        set drawing own grid size from slider value
+        set grid size for mouse too
+        """
 
         if self.drawings.objects :
             self.drawings.selected_draw.grid_step = self.previewpanel.grid_size
             self.mouse.pp_grid_size = self.previewpanel.grid_size
 
     def drop_down_menu_select(self, ID) :
+        """*
+        select a new object and display it's properties
+        """
 
         self.drawings.selected_item_ID = ID
         self.optionpanel.update_lua_dct(self.drawings.selected_draw.get_lua_dct())
@@ -168,6 +255,9 @@ class main_interface :
         self.mouse.pp_grid_size = self.drawings.selected_draw.grid_step
 
     def change_selected_object_property(self, ui_element) :
+        """
+        update 1 property of a drawing from entry box interaction
+        """
 
         name, new_value = self.optionpanel.get_new_entry(ui_element)
         self.drawings.selected_draw.set_dct_item_from_lua({name:new_value})
@@ -328,5 +418,4 @@ if __name__ == "__main__" :
     interface = main_interface()
     interface.loop()
 
-main()
 

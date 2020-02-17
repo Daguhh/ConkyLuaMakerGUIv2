@@ -106,4 +106,8 @@ class LuaLine(LuaGraph):
         self.mask = pygame.mask.from_surface(self.surface)
 
     def resize(self, new_mouse_pos) :
-        self.dct['to'] = tup_dif(new_mouse_pos,self.pos)
+
+        if self.dct['from'] != tup_dif(new_mouse_pos,self.pos) :
+#            print('choose a non-zero value for line size')
+#        else :
+            self.dct['to'] = tup_dif(new_mouse_pos,self.pos)
