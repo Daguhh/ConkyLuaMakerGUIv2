@@ -96,8 +96,7 @@ class LuaDrawings:
         for name, drawing in enumerate(self.objects):
             if name == item_name:
                 self.selected_item = name
-                break
-        return drawing.get_lua_dct()
+                return drawing.get_lua_dct()
 
     def rename_draw(self, new_ID):
 
