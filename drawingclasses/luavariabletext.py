@@ -7,9 +7,9 @@ Created on Wed Jan 17 21:43:37 2018
 """
 from .luaplot import LuaGraph, LuaTexts
 
-class LuaVariableText(LuaGraph, LuaTexts) :
 
-    def __init__ (self, draw_area) :
+class LuaVariableText(LuaGraph, LuaTexts):
+    def __init__(self, draw_area):
 
         LuaGraph.__init__(self)
         LuaTexts.__init__(self)
@@ -21,13 +21,14 @@ class LuaVariableText(LuaGraph, LuaTexts) :
         self.text_name = "conky_value"
 
         self.dct = {
-            "kind" : 'variable_text',
-            "from" : (0,0),
-            "conky_value" : 'uptime',
-            "color" : (0,0,0),
-            "rotation_angle" : 0,
-            "font" : 'Comic Sans MS',
-            "font_size" : 12,
-            "bold" : False,
+            "kind": "variable_text",
+            "from": (0, 0),
+            "conky_value": "uptime",
+            "color": (0, 0, 0),
+            "rotation_angle": 0,
+            "font": "Comic Sans MS",
+            "font_size": 12,
+            "bold": False,
             "italic": False,
-            "alpha" : 1}
+            "alpha": 1,
+        }

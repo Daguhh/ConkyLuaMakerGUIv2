@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 """
 
@@ -12,4 +12,3 @@ from .luarings import LuaRings
 from .luatexts import LuaTexts
 
 from .parse_dct import lua2pil_dct, pil2lua_dct
-
