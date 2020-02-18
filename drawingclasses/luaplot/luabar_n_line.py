@@ -84,7 +84,6 @@ class BarNLine :
         p = pmt.min(f,t)
         f = f - p + of
         t = t - p + of
-        #p = p - of
 
         self._pos = p - of
         self.dct['from'] = f # .get()
@@ -92,7 +91,10 @@ class BarNLine :
 
         dif = t - f
         norm = dif.norm()
-        ratio = h/norm
+        if norm != 0 :
+            ratio = h/norm
+        else :
+            ratio = 1
         w_p = ratio * dif^(0,0,1)
         w_m = ratio * dif^(0,0,-1)
 
