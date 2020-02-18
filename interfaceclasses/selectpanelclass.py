@@ -34,7 +34,40 @@ class SelectPanel:
                         manager=self.manager)
                         #object_id='button_theme')
 
+    def delete(self, ID) :
+
+        self.current_selection = ID
+        self.drawing_name_list.remove(ID)
+        self._update_list()
+
+    def rename(self, old_ID) :
+
+        new_ID =  self.new_name_entry_box.get_text()
+        self.current_selection = new_ID
+        self.drawing_name_list[self.drawing_name_list.index(old_ID)] = new_ID
+        self._update_list()
+        self.new_name_entry_box.set_text("Rename")
+
+        return new_ID
+
+    def add_item_to_list(self, new_ID) :
+
+        self.current_selection = new_ID
+        self.drawing_name_list.append(new_ID)
+        self._update_list()
+
+
+    def _update_list(self) :
+
+        self.dropdown.kill()
+        self.dropdown = pygame_gui.elements.UIDropDownMenu(
+            self.drawing_name_list,
+            self.current_selection,
+            SP_DROPDOWN_RECT,
+            self.manager)
+
     def update_list(self, liste) :
+        print('use old_list')
 
         self.dropdown.kill()
         self.drawing_name_list = liste

@@ -13,37 +13,37 @@ from math import pi, atan, cos, sin
 from .parse_dct import lua2pil_dct, pil2lua_dct
 from .vectproduct import vect_product, tup_norm, tup_sum, tup_dif, tup_tim
 
+from .math_tools import  PositionMathTool as pmt
+from .math_tools import  PositionValueObject as pval
+
 class LuaEllipses :
     def __init__(self):
         pass
-    
+
     def draw(self, positions) :
 
-        c = positions[0]
-        to = positions[1]
-        r = int(((c[0]-to[0])**2 + (c[1]-to[1])**2)**0.5)
+        c = pval(positions[0])
+        to = pval(positions[1])
+        r = (c-to).norm()
 
         self.dct['width'] = r
         self.dct['height'] = r
-        self.pos = (c[0]-r, c[1]-r)
-        self.dct['center'] = (r,r)
+        self._pos = c - (r,r)
+        self.dct['center'] = pval((r,r))
         self.dct['radius'] = r
-        
+
     def update(self) :
 
         c = self.dct['center']
-        p = self.pos
-
+        p = self._pos
         w = self.dct['width'] + self.dct[self.thickness_name]/2
         h = self.dct['height'] + self.dct[self.thickness_name]/2
 
-        c = tup_sum(c,p)
+        c = c + p
         g = self.grid_step
-        c = (c[0]//g*g, c[1]//g*g)
-        p = tup_dif(c,(w,h))
-        self.pos = (p[0], p[1])
-        c = (w,h)
-        self.dct['center'] = c
+        c = pmt.discretize(c,g)
+        self._pos = c - (w,h)
+        self.dct['center'] = pval((w,h))
 
         rect = pygame.Rect((0,0),(2*w,2*h))
         self.surface = pygame.Surface((2*w,2*h), pygame.SRCALPHA)
@@ -63,8 +63,8 @@ class LuaEllipses :
         self.mask = pygame.mask.from_surface(self.surface)
 
     def resize(self, new_mouse_pos) :
-            center = tup_sum(self.dct["center"], self.pos)
-            x, y = tup_dif(new_mouse_pos, center)
+            center = self.dct['center'] + self._pos
+            x, y = (new_mouse_pos - center).get()
             a, b = self.dct['width'], self.dct['height']
             if a != 0 and x != 0 and b != 0 and y!=0:
 

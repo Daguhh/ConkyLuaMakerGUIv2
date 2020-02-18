@@ -87,6 +87,7 @@ class LuaDrawings :
         name = self.buf.drawing.dct['kind'] + self.id_gen.__next__()
         self.objects[name] = self.buf.drawing
         self.buf.clear()
+        self.selected_item_ID = name
 
     def preview_from_buffer(self, mouse_pos) :
 
@@ -98,9 +99,19 @@ class LuaDrawings :
                 self.selected_item = name
                 return drawing.get_lua_dct()
 
-    def rename_draw(self, new_name) :
+    def rename_draw(self, new_ID) :
 
-        self.selected_item = new_name
+        self.objects[new_ID] = self.objects.pop(self.selected_item_ID)
+        self.selected_item_ID = new_ID
+
+    def delete_selected_item(self) :
+
+        del(self.objects[self.selected_item_ID])
+        try :
+            self.selected_item_ID = list(self.objects.keys())[-1]
+        except :
+            print("no drawings to select")
+            self.selected_item_ID = 0
 
     def gen_id(self) :
         i = 0

@@ -7,6 +7,8 @@ Created on Tue Jan  9 14:10:20 2018
 """
 
 
+from .math_tools import PositionValueObject as pval
+
 
 def lua2pil_dct(lua_dct, pos):
     pil_dct = {}
@@ -15,7 +17,7 @@ def lua2pil_dct(lua_dct, pos):
             if k in INT_LIST     : v = int(v)
             elif k in FLOAT_LIST : v = float(v)
             elif k in TEXT_LIST  : v = v[1:-1]
-            elif k in TUPLE_LIST : v = unformat_xy(v, pos)
+            elif k in TUPLE_LIST : v = pval(unformat_xy(v, pos))
             elif k in COLOR_LIST : v = lua2pil_color(v)
             elif k in ANGLE_LIST : v = 360 - int(v)
             elif k in KIND_LIST : v = v[1:-1]

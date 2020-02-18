@@ -3,15 +3,23 @@
 
 
 from .parse_dct import lua2pil_dct, pil2lua_dct
+from .math_tools import  PositionValueObject as pval
 
 class LuaGraph:
     def __init__(self) :
 
-        self.pos = (0,0)
+        self._pos = pval((0,0))
         self.is_moving = False
         self.is_resizing = False
-#        self.position_list=[]
         self.grid_step = 1
+
+    @property
+    def pos(self) :
+        return tuple(self._pos)
+
+    @ pos.setter
+    def pos(self, pos) :
+        self._pos = pval(pos)
 
     def get_lua_dct(self) :
         return pil2lua_dct(self.dct, self.pos)

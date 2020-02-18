@@ -79,13 +79,7 @@ class OptionPanel:
 
     def update_lua_dct(self, dct) :
 
-        #print('update!!!!!!!!!!!!!!!!')
-
-        nb_box = range(self.box_number)
-        temp = zip(nb_box, self.labels, self.entrys)
-        for i, label, entry in temp:
-            label.set_text("")
-            entry.set_text("")
+        self.clear()
 
         temp = zip(list(dct.keys()),self.labels)
         for k, label in temp :
@@ -103,6 +97,14 @@ class OptionPanel:
         value = self.entrys[ind].get_text()
 
         return name, value
+
+    def clear(self) :
+
+        nb_box = range(self.box_number)
+        temp = zip(nb_box, self.labels, self.entrys)
+        for i, label, entry in temp:
+            label.set_text("")
+            entry.set_text("")
 
     def blit(self) :
 

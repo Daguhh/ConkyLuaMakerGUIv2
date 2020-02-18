@@ -16,10 +16,10 @@ class LuaLine(LuaGraph, BarNLine):
 
         self.draw_area = draw_area
         self.name = "line"
-        
+
         self.grid_step = 1
         self.input_remaning = 2
-        
+
         self.color_name = "color"
         self.thickness_name = "thickness"
 
@@ -32,4 +32,4 @@ class LuaLine(LuaGraph, BarNLine):
                     "graduated" : False,
                     "number_graduation" : 10,
                     "space_between_graduation" : 1}
-                
+

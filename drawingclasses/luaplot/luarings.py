@@ -10,35 +10,35 @@ import pygame_gui
 from math import pi
 
 from .parse_dct import lua2pil_dct, pil2lua_dct
-from .vectproduct import vect_product, tup_norm, tup_sum, tup_dif, tup_tim
-
+#from .vectproduct import vect_product, tup_norm, tup_sum, tup_dif, tup_tim
+from .math_tools import  PositionMathTool as pmt
+from .math_tools import  PositionValueObject as pval
 
 class LuaRings :
     def __init__(self) :
         pass
 
     def draw(self, positions) :
-        center = positions[0]
-        to = positions[1]
-        r = int(((center[0]-to[0])**2 + (center[1]-to[1])**2)**0.5)
-        self.pos = (center[0]-r, center[1]-r)
-        center = (r,r)
 
-        self.dct['center'] = center
+        center = pval(positions[0])
+        to = pval(positions[1])
+        r = (center - to).norm()
+
+        self._pos = center - (r,r)
+        self.dct['center'] = pval((r,r))
         self.dct['radius'] = r
 
     def update(self) :
 
         c = self.dct['center']
         r = self.dct['radius'] + self.dct[self.thickness_name]/2
-        p = self.pos
+        p = self._pos
 
-        c = tup_sum(c,p)
+        c = c + p
         g = self.grid_step
-        c = (c[0]//g*g, c[1]//g*g)
-        self.pos = tup_dif(c,(r,r))
-        c = (r,r)
-        self.dct['center'] = c
+        c = pmt.discretize(c,g)
+        self._pos = c - (r,r)
+        self.dct['center'] = pval((r,r))
 
         rect = pygame.Rect((0,0),(2*r,2*r))
         self.surface = pygame.Surface((2*r,2*r), pygame.SRCALPHA)
@@ -59,6 +59,9 @@ class LuaRings :
         self.mask = pygame.mask.from_surface(self.surface)
 
     def resize(self, new_mouse_pos) :
-        center = tup_sum(self.dct["center"], self.pos)
-        radius_vect = tup_dif(new_mouse_pos, center)
-        self.dct['radius'] = tup_norm(radius_vect)
+        center = self.dct['center'] + self._pos
+        radius_vect = new_mouse_pos - center
+        self.dct['radius'] = radius_vect.norm()
+
+
+
