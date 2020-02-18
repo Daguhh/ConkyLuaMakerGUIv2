@@ -91,7 +91,7 @@ def pil2lua_dct(pil_dct, pos):
     return lua_dct
 
 
-global INT_LIST
+#global INT_LIST
 INT_LIST = [
     "max_value",
     "critical_threshold",
@@ -103,17 +103,17 @@ INT_LIST = [
     "font_size",
     "number_graduation",
 ]
-global FLOAT_LIST
+#global FLOAT_LIST
 FLOAT_LIST = ["alpha", "bar_alpha", "background_alpha", "background_alpha_critical"]
-global WHR_LIST
+#global WHR_LIST
 WHR_LIST = ["width", "height", "radius"]
-global TEXT_LIST
+#global TEXT_LIST
 TEXT_LIST = ["conky_value", "text", "font"]
-global KIND
+#global KIND
 KIND_LIST = ["kind"]
-global TUPLE_LIST
+#global TUPLE_LIST
 TUPLE_LIST = ["center", "from", "to"]
-global COLOR_LIST
+#global COLOR_LIST
 COLOR_LIST = [
     "bar_color",
     "color",
@@ -121,13 +121,13 @@ COLOR_LIST = [
     "background_color_critical",
     "bar_color_critical",
 ]
-global BOOL_LIST
+#global BOOL_LIST
 BOOL_LIST = [
     "change_color_on_critical",
     "change_alpha_on_critical",
     "change_thickness_on_critical",
 ]
-global ANGLE_LIST
+#global ANGLE_LIST
 ANGLE_LIST = ["start_angle", "end_angle", "rotation", "rotation_angle"]
 
 
