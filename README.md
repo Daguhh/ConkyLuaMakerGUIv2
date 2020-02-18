@@ -86,12 +86,17 @@ then just run
 
 ###### Notes :
 
-   I'm still learing python, the main aim of this project is for me to familiarise with python and GUI, so, code looks quite ugly, 
-        Script don't handle exception and can be broken easily (take care of value, don't try to much exotic things),
-        so you have to keep all ' and { or 0x of the properties if you don't want to go back to the start
-        hope you can create a conf file with not much problems, but it works : 
-             I've recently change code and dependancy from matplotlib to pygame,
-        code now running better, exception are still not handled but, you can save your work and load it more easily now, 
-        so you don't have to restart from the start each time you find a bug. 
-        graph are also more accurate, and the preview looks more like it will be displayed by the conky
+This project purpose is mainly training at python, so, code looks quite ugly, but I'm trying to make it more and more readable.
+Script don't handle exceptions that much and can be broken quite easily (it's much better now, but still...), 
+try to save your work times to times.
 
+Hope you can create a conf file with not much problems, I've recently change code and dependancy from matplotlib to pygame, 
+code now running better, you can save your work and load it more easily now, 
+so you don't have to restart from the start each time you find a bug. 
+Graphs are also more accurate, and the preview looks more like it will be displayed by conky (still got small placment differences)
+
+Please if you give a try, give me a feedback, I would be pleased (even if you had a bad experience =) ). 
+If you succed to make a nice conky, please send me your conf file so I can put it in example folder
+If you wanna look at the code, take care! But your welcome =P .
+
+Daguhh
