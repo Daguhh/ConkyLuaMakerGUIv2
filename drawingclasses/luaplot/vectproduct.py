@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+""" 
+depreciate file
+"""
+
 
 def tup_max(tup):
     max0 = max([pt[0] for pt in tup])

@@ -2,23 +2,16 @@
 # -*- coding: utf-8 -*-
 
 """
-
+Class that implement draw of rectangles (for bar and line)
+It use pygame.draw
+methods :
+    - draw 
+    - update
+    - resize
 """
 
 import pygame
-import pygame_gui
 
-from .vectproduct import (
-    vect_product,
-    tup_norm,
-    tup_sum,
-    tup_dif,
-    tup_tim,
-    tup_max,
-    tup_min,
-)
-
-# from .parse_dct import lua2pil_dct, pil2lua_dct
 from .math_tools import PositionMathTool as pmt
 from .math_tools import PositionValueObject as pval
 
@@ -50,28 +43,6 @@ class BarNLine:
         self._pos = p  # .get()
         self.dct["from"] = f  # .get()
         self.dct["to"] = t  # .get()
-
-    #    def drawold(self, positions) :
-    #
-    #        self.dct['from'] = positions[0]
-    #        self.dct['to'] = positions[1]
-    #
-    #        h = self.dct[self.thickness_name]/2
-    #        f = self.dct['from']
-    #        t = self.dct['to']
-    #        p = (0,0)
-    #        of = self.dct[self.thickness_name]*1
-    #
-    #        f = tup_sum(f,p)
-    #        t = tup_sum(t,p)
-    #
-    #        p = (min(f[0], t[0]), min(f[1],t[1]))
-    #        f = (f[0] - p[0] + of, f[1] - p[1] + of)
-    #        t = (t[0] - p[0] + of, t[1] - p[1] + of)
-    #
-    #        self._pos = (p[0]-of, p[1]-of)
-    #        self.dct['from'] = f
-    #        self.dct['to']  = t
 
     def update(self):
 

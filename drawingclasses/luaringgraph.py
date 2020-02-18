@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-
+Draw ring monitor
 """
 
 from .luaplot import LuaGraph, LuaRings

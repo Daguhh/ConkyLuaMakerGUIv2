@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-
+Draw static ellipse
 """
 
 from .luaplot import LuaGraph, LuaEllipses

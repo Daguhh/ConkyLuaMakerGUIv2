@@ -7,7 +7,13 @@ import pygame_gui
 from drawingclasses import GRAPH_LIST
 from drawingclasses import lua2pil_dct, pil2lua_dct
 
-from .interface_object_position import *
+from .interface_object_position import (
+    MB_MENU_RECT,
+    MB_GEN_RECT,
+    MB_SAVE_RECT,
+    MB_LOAD_RECT,
+    MB_HELP_RECT,
+)
 
 
 class MenuButtons:  # (ConkyLuaMaker_HelpClass) :

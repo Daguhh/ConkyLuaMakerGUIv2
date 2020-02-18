@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-
+Edit this file to configure position of interface elements
 """
 
 import pygame

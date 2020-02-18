@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-
+Draw simple line
 """
 
 from .luaplot import LuaGraph, BarNLine

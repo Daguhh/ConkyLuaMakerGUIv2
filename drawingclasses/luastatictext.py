@@ -1,9 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jan 17 21:43:37 2018
-
-@author: david
+Draw static text
 """
 
 from .luaplot import LuaGraph, LuaTexts

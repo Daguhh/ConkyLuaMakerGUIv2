@@ -5,9 +5,11 @@ import pygame
 import pygame_gui
 
 from drawingclasses import GRAPH_LIST
-from drawingclasses import lua2pil_dct, pil2lua_dct
-
-from .interface_object_position import *
+from .interface_object_position import (
+    SP_DELETE_BUTTON_RECT,
+    SP_DROPDOWN_RECT,
+    SP_RENAME_BOX_RECT,
+)
 
 
 class SelectPanel:

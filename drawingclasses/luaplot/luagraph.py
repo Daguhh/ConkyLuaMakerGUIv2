@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""
+mother class of lua[drawings]
+methods and properties :
+    - save position value in PositionValueObject format
+    - translate lua <=> pygame format
+    - blit func
+"""
 
 from .parse_dct import lua2pil_dct, pil2lua_dct
 from .math_tools import PositionValueObject as pval

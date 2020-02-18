@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-
+Draw bar monitor
 """
 
 from .luaplot import LuaGraph, BarNLine

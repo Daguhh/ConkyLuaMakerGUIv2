@@ -111,9 +111,7 @@ class main_interface:
         check for interactions with interface and run methods
         """
 
-        update_graph = (
-            2
-        )  # update graph during 2 loops after interfaction (unkown bug prevention)
+        update_graph = 2  # update during 2 loops(prevent unkown bug)
         is_running = True
         while is_running:
             time_delta = self.clock.tick(15) / 1000.0
@@ -128,19 +126,18 @@ class main_interface:
 
                 elif event.type == pygame.USEREVENT:
                     update_graph = 2
-                    print("============== update on button ================")
-                    type = event.user_type
+                    utype = event.user_type
 
-                    if type == pygame_gui.UI_BUTTON_PRESSED:
+                    if utype == pygame_gui.UI_BUTTON_PRESSED:
                         self.process_push_buttons_event(event)
 
-                    elif type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
+                    elif utype == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
                         self.drop_down_menu_select(event.text)
 
-                    elif type == pygame_gui.UI_TEXT_ENTRY_FINISHED:
+                    elif utype == pygame_gui.UI_TEXT_ENTRY_FINISHED:
                         self.process_entry_box_event(event)
 
-                    elif type == pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
+                    elif utype == pygame_gui.UI_TEXT_BOX_LINK_CLICKED:
                         self.help_box_show_new_page(event)
 
                 elif self.mouse.on_previewpanel:
@@ -176,7 +173,7 @@ class main_interface:
             self.manager.draw_ui(self.window_surface)
             pygame.display.update()
 
-    ##############  Inner event test in loop  """"""""""""""""""""""""""""""""""
+    ##############  Inner event test in loop  ############################
 
     def process_push_buttons_event(self, event):
 
@@ -206,7 +203,7 @@ class main_interface:
         elif event.ui_element == self.selectpanel.new_name_entry_box:
             self.rename_selected_object()
 
-    ################  Methods : actions on event  #################################
+    ################  Methods : actions on event  ########################
 
     def create_new_draw(self, ui_element):
         """
@@ -322,7 +319,7 @@ class main_interface:
                     int(self.mouse.pp_rel_pos[1] - drawing.pos[1]),
                 )
                 if drawing.surface.get_rect().collidepoint(test_pos):
-                    if drawing.mask.get_at(test_pos) == True:
+                    if drawing.mask.get_at(test_pos):
                         self.drawings.selected_item_ID = ID
                         self.selectpanel.set_select_item(ID)
                         self.optionpanel.update_lua_dct(drawing.get_lua_dct())
@@ -356,7 +353,7 @@ class main_interface:
         self.window_surface.blit(self.background, (0, 0))
         self.previewpanel.blit()
         self.previewpanel.clear()
-        for name, drawing in self.drawings.objects.items():
+        for drawing in self.drawings.objects.values():
             drawing.blit()
         if self.drawings.buf.input_remaning == 1:
             try:
@@ -392,9 +389,10 @@ class Mouse:
 
     @property
     def pp_grid_pos(self):
+        s = self.pp_grid_size
         return (
-            (self.abs_pos[0] - self.pp_pos[0]) // self.pp_grid_size * self.pp_grid_size,
-            (self.abs_pos[1] - self.pp_pos[1]) // self.pp_grid_size * self.pp_grid_size,
+            (self.abs_pos[0] - self.pp_pos[0]) // s * s,
+            (self.abs_pos[1] - self.pp_pos[1]) // s * s,
         )
 
     @property

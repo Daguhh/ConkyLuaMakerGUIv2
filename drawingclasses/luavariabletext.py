@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jan 17 21:43:37 2018
-
-@author: david
+Draw variable text that show a conky value
 """
 from .luaplot import LuaGraph, LuaTexts
 

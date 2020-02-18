@@ -5,9 +5,15 @@ import pygame
 import pygame_gui
 
 from drawingclasses import GRAPH_LIST
-from drawingclasses import lua2pil_dct, pil2lua_dct
 
-from .interface_object_position import *
+from .interface_object_position import (
+    OP_LABEL_BOX_WIDTH,
+    OP_ENTRY_BOX_WIDTH,
+    OP_BOX_HEIGHT,
+    OP_BOX_NUMBER,
+    OP_PANEL_BACKGROUND_COLOR,
+    OP_PANEL_POS,
+)
 
 
 class OptionPanel:

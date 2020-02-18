@@ -5,9 +5,7 @@ import pygame
 import pygame_gui
 
 from drawingclasses import GRAPH_LIST
-from drawingclasses import lua2pil_dct, pil2lua_dct
-
-from .interface_object_position import *
+from .interface_object_position import CBP_HEIGHT, CBP_WIDTH, CBP_OFFSET, CBP_SPACING
 
 
 class ChoiceButtonPanel:

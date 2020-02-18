@@ -9,7 +9,6 @@ Created on Wed Jan 17 21:43:37 2018
 from math import pi, sin, cos
 
 import pygame
-import pygame_gui
 
 from .math_tools import PositionMathTool as pmt
 from .math_tools import PositionValueObject as pval

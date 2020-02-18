@@ -21,16 +21,14 @@ class LuaDrawings:
     """ Save all drawings in a list """
 
     def __init__(self, draw_area):
-        self.draw_area = draw_area
-        # self.liste = []
 
+        self.draw_area = draw_area
         self.buf = NewObjectBuffer()
 
         self.an_object_is_moving = False
         self.an_object_is_resizing = False
 
         self._selected_item_ID = 0
-
         self.objects = {}
 
         self.id_gen = self.gen_id()
@@ -45,8 +43,6 @@ class LuaDrawings:
 
     @selected_item_ID.setter
     def selected_item_ID(self, ID):
-        print("--------------- SETTING ID------------------------")
-        print("id = ", ID)
         self._selected_item_ID = ID
 
     def _get_draw_class(self, kind):
@@ -100,7 +96,8 @@ class LuaDrawings:
         for name, drawing in enumerate(self.objects):
             if name == item_name:
                 self.selected_item = name
-                return drawing.get_lua_dct()
+                break
+        return drawing.get_lua_dct()
 
     def rename_draw(self, new_ID):
 
@@ -144,22 +141,20 @@ class NewObjectBuffer:
 
     def draw(self, mouse_pos=(0, 0)):
 
-        # if not self.inputs_pos == 0 :
         if self.input_remaning >= 2:
             pass
         elif self.input_remaning == 1:
             fake_inputs = self.inputs_pos.copy()
             fake_inputs.append(mouse_pos)
-            # print('fake : ',fake_inputs)
             self.drawing.draw(fake_inputs)
         else:
             self.drawing.draw(self.inputs_pos)
 
-    def is_empty(self):
-        if self.waiting_inputs == False and self.inputs_pos:
-            return False
-        else:
-            return True
+    # def is_empty(self):
+    #    if self.waiting_inputs == False and self.inputs_pos:
+    #        return False
+    #    else:
+    #        return True
 
     def clear(self):
         self.waiting_inputs = False

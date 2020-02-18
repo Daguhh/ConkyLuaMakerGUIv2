@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Jan  9 14:10:20 2018
 
-@author: david
 """
-
+a "translater" from lua formalism to pygame.draw formalism
+and in the other way
+"""
 
 from .math_tools import PositionValueObject as pval
 

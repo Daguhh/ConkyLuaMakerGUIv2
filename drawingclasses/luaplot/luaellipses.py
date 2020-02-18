@@ -2,17 +2,14 @@
 # -*- coding: utf-8 -*-
 
 """
-
+Implement ellipse draw from pygame.draw
 """
 
-import pygame
-import pygame_gui
 from math import pi, atan, cos, sin
 
+import pygame
 
 from .parse_dct import lua2pil_dct, pil2lua_dct
-from .vectproduct import vect_product, tup_norm, tup_sum, tup_dif, tup_tim
-
 from .math_tools import PositionMathTool as pmt
 from .math_tools import PositionValueObject as pval
 
