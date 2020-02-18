@@ -18,7 +18,7 @@ from .luastatictext import LuaStaticText
 from .luaellipsegraph import LuaEllipseGraph
 from .luaellipse import LuaEllipse
 
-from .parse_dct import lua2pil_dct, pil2lua_dct
+from .luaplot import lua2pil_dct, pil2lua_dct
 #from .luastatictext import LUAStaticText
 #from .luavariabletext import LUAVariableText
 #from .lualine import LUALine
