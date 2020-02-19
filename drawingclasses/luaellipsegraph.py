@@ -11,15 +11,10 @@ from .luaplot import LuaGraph, LuaEllipses
 class LuaEllipseGraph(LuaGraph, LuaEllipses):
     def __init__(self, draw_area):
 
-        LuaGraph.__init__(self)
+        LuaGraph.__init__(self, draw_area)
         LuaEllipses.__init__(self)
 
-        self.draw_area = draw_area
-        self.grid_step = 1
-
         self.name = "ellipse_graph"
-        self.input_remaning = 2
-
         self.color_name = "bar_color"
         self.thickness_name = "bar_thickness"
 

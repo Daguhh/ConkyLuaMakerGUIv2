@@ -18,7 +18,8 @@ from .math_tools import PositionValueObject as pval
 
 class BarNLine:
     def __init__(self):
-        pass
+        
+        self.input_remaning = 2
 
     def draw(self, positions):
 

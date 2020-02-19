@@ -7,19 +7,13 @@ Draw static ring
 
 from .luaplot import LuaGraph, LuaRings
 
-
 class LuaRing(LuaGraph, LuaRings):
     def __init__(self, draw_area):
 
-        LuaGraph.__init__(self)
+        LuaGraph.__init__(self, draw_area)
         LuaRings.__init__(self)
 
-        self.draw_area = draw_area
-        self.grid_step = 1
-
         self.name = "ring"
-        self.input_remaning = 2
-
         self.color_name = "color"
         self.thickness_name = "thickness"
 

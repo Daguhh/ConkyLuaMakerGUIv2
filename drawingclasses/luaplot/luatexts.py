@@ -16,7 +16,8 @@ from .math_tools import PositionValueObject as pval
 
 class LuaTexts:
     def __init__(self):
-        pass
+        
+        self.input_remaning = 1
 
     def draw(self, position):
 

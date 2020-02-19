@@ -14,8 +14,9 @@ from .math_tools import PositionValueObject as pval
 
 
 class LuaGraph:
-    def __init__(self):
+    def __init__(self, draw_area):
 
+        self.draw_area = draw_area
         self._pos = pval((0, 0))
         self.is_moving = False
         self.is_resizing = False

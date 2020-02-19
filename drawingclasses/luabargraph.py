@@ -11,15 +11,10 @@ from .luaplot import LuaGraph, BarNLine
 class LuaBarGraph(LuaGraph, BarNLine):
     def __init__(self, draw_area):
 
-        LuaGraph.__init__(self)
+        LuaGraph.__init__(self, draw_area)
         BarNLine.__init__(self)
 
-        self.draw_area = draw_area
         self.name = "bar_graph"
-
-        self.input_remaning = 2
-        self.grid_step = 1
-
         self.color_name = "bar_color"
         self.thickness_name = "bar_thickness"
 
