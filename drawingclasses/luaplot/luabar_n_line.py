@@ -5,7 +5,7 @@
 Class that implement draw of rectangles (for bar and line)
 It use pygame.draw
 methods :
-    - draw 
+    - draw
     - update
     - resize
 """
@@ -18,7 +18,7 @@ from .math_tools import PositionValueObject as pval
 
 class BarNLine:
     def __init__(self):
-        
+
         self.input_remaning = 2
 
     def draw(self, positions):
@@ -26,12 +26,10 @@ class BarNLine:
         self.dct["from"] = pval(positions[0])
         self.dct["to"] = pval(positions[1])
 
-        h = self.dct[self.thickness_name] / 2
-        f = pval(positions[0])  # self.dct['from']
-        t = pval(positions[1])  # self.dct['to']
+        f = pval(positions[0])
+        t = pval(positions[1])
         p = pval((0, 0))
         of = pval((1, 1)) * self.dct[self.thickness_name]
-        # of = (of,of)
 
         f = f + p
         t = t + p
@@ -41,9 +39,9 @@ class BarNLine:
         t = t - p + of
         p = p - of
 
-        self._pos = p  # .get()
-        self.dct["from"] = f  # .get()
-        self.dct["to"] = t  # .get()
+        self._pos = p
+        self.dct["from"] = f
+        self.dct["to"] = t
 
     def update(self):
 
@@ -52,7 +50,6 @@ class BarNLine:
         t = pval(self.dct["to"])
         p = self._pos
         of = pval((1, 1)) * self.dct[self.thickness_name] * 1
-        # of = (of,of)
 
         f = f + p
         t = t + p
@@ -67,8 +64,8 @@ class BarNLine:
         t = t - p + of
 
         self._pos = p - of
-        self.dct["from"] = f  # .get()
-        self.dct["to"] = t  # .get()
+        self.dct["from"] = f
+        self.dct["to"] = t
 
         dif = t - f
         norm = dif.norm()
@@ -95,9 +92,5 @@ class BarNLine:
 
     def resize(self, new_mouse_pos):
 
-        if (
-            self.dct["from"] != new_mouse_pos - self._pos
-        ):  # tup_dif(new_mouse_pos,self._pos) :
-            self.dct["to"] = (
-                new_mouse_pos - self._pos
-            )  # tup_dif(new_mouse_pos,self._pos)
+        if self.dct["from"] != new_mouse_pos - self._pos:
+            self.dct["to"] = new_mouse_pos - self._pos

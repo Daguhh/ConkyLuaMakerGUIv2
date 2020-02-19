@@ -13,7 +13,7 @@ class LuaLine(LuaGraph, BarNLine):
 
         LuaGraph.__init__(self, draw_area)
         BarNLine.__init__(self)
-        
+
         self.name = "line"
         self.color_name = "color"
         self.thickness_name = "thickness"

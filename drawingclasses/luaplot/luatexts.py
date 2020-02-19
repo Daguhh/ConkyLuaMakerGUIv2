@@ -16,7 +16,7 @@ from .math_tools import PositionValueObject as pval
 
 class LuaTexts:
     def __init__(self):
-        
+
         self.input_remaning = 1
 
     def draw(self, position):
@@ -47,17 +47,17 @@ class LuaTexts:
         self.mask = pygame.mask.from_surface(self.surface)
 
         A = self.dct["rotation_angle"]
-        tw, th = textsurface.get_size()
+        _, th = textsurface.get_size()
         sw, sh = self.surface.get_size()
 
-        if A >= 270:
+        if 270 <= A:
             x, _ = pmt.rot((0, th * (1 - 0.8)), A)
             _, y = pmt.rot((0, th * 0.8), A)
-        elif A >= 180 and A < 270:
+        elif 180 <= A and A < 270:
             x1, _ = pmt.rot((0, th * 0.8), A)
             x = -(sw + x1)
             y = 0
-        elif A >= 90 and A < 180:
+        elif 90 <= A and A < 180:
             x = -sw
             _, y1 = pmt.rot((0, th * 0.8), A)
             y = +(sh + y1)

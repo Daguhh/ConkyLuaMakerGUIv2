@@ -37,7 +37,7 @@ class LuaGraph:
         return lua2pil_dct(lua_dct)
 
     def set_dct_item_from_lua(self, lua_dct_item):
-        pil_dct_item = lua2pil_dct(lua_dct_item, self.pos)
+        pil_dct_item = lua2pil_dct(lua_dct_item, self._pos)
         k, v = pil_dct_item.popitem()
         self.dct[k] = v
 

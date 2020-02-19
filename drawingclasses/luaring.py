@@ -7,6 +7,7 @@ Draw static ring
 
 from .luaplot import LuaGraph, LuaRings
 
+
 class LuaRing(LuaGraph, LuaRings):
     def __init__(self, draw_area):
 

@@ -7,12 +7,13 @@ Draw ring monitor
 
 from .luaplot import LuaGraph, LuaRings
 
+
 class LuaRingGraph(LuaGraph, LuaRings):
     def __init__(self, draw_area):
 
         LuaGraph.__init__(self, draw_area)
         LuaRings.__init__(self)
-        
+
         self.name = "ring_graph"
         self.color_name = "bar_color"
         self.thickness_name = "bar_thickness"

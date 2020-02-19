@@ -16,9 +16,9 @@ from .math_tools import PositionValueObject as pval
 
 class LuaRings:
     def __init__(self):
-        
+
         self.input_remaning = 2
-        
+
     def draw(self, positions):
 
         center = pval(positions[0])

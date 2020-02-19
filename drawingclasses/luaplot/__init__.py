@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-
+Graphs definitions
 """
 
 from .luabar_n_line import BarNLine
