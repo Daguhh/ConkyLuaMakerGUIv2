@@ -126,6 +126,7 @@ BOOL_LIST = [
     "change_color_on_critical",
     "change_alpha_on_critical",
     "change_thickness_on_critical",
+    "graduated"
 ]
 # global ANGLE_LIST
 ANGLE_LIST = ["start_angle", "end_angle", "rotation", "rotation_angle"]

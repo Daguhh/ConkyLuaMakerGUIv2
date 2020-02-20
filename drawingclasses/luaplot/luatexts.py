@@ -50,14 +50,14 @@ class LuaTexts:
         _, th = textsurface.get_size()
         sw, sh = self.surface.get_size()
 
-        if 270 <= A:
+        if A >= 270 :
             x, _ = pmt.rot((0, th * (1 - 0.8)), A)
             _, y = pmt.rot((0, th * 0.8), A)
-        elif 180 <= A and A < 270:
+        elif 180 <= A < 270:
             x1, _ = pmt.rot((0, th * 0.8), A)
             x = -(sw + x1)
             y = 0
-        elif 90 <= A and A < 180:
+        elif 90 <= A < 180:
             x = -sw
             _, y1 = pmt.rot((0, th * 0.8), A)
             y = +(sh + y1)

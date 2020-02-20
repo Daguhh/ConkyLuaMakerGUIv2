@@ -18,7 +18,7 @@ class LuaVariableText(LuaGraph, LuaTexts):
             "kind": "variable_text",
             "from": (0, 0),
             "conky_value": "uptime",
-            "color": (0, 0, 0),
+            "color": (200, 200, 200),
             "rotation_angle": 0,
             "font": "Comic Sans MS",
             "font_size": 12,

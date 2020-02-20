@@ -25,8 +25,8 @@ class LuaEllipses:
         to = pval(positions[1])
         r = (c - to).norm()
 
-        self.dct["width"] = r
-        self.dct["height"] = r
+        self.dct["width"] = 2*r
+        self.dct["height"] = 2*r
         self._pos = c - (r, r)
         self.dct["center"] = pval((r, r))
         self.dct["radius"] = r
@@ -35,17 +35,17 @@ class LuaEllipses:
 
         c = self.dct["center"]
         p = self._pos
-        w = self.dct["width"] + self.dct[self.thickness_name] / 2
-        h = self.dct["height"] + self.dct[self.thickness_name] / 2
+        w = self.dct["width"] + self.dct[self.thickness_name]
+        h = self.dct["height"] + self.dct[self.thickness_name]
 
         c = c + p
         g = self.grid_step
         c = pmt.discretize(c, g)
-        self._pos = c - (w, h)
-        self.dct["center"] = pval((w, h))
+        self._pos = c - (w/2, h/2)
+        self.dct["center"] = pval((w/2, h/2))
 
-        rect = pygame.Rect((0, 0), (2 * w, 2 * h))
-        self.surface = pygame.Surface((2 * w, 2 * h), pygame.SRCALPHA)
+        rect = pygame.Rect((0, 0), (w, h))
+        self.surface = pygame.Surface((w, h), pygame.SRCALPHA)
 
         start_angle = self.dct["end_angle"] * pi / 180
         end_angle = self.dct["start_angle"] * pi / 180
@@ -73,7 +73,6 @@ class LuaEllipses:
                 angle = atan((y / x) / (b / a))
             elif x < 0:
                 angle = pi + atan((y / x) / (b / a))
-
-            if angle != 0 and angle != 90 and angle != 180 and angle != 270:
-                self.dct["width"] = x / cos(angle)
-                self.dct["height"] = y / sin(angle)
+            if angle not in (0,90,180,270):
+                self.dct["width"] = 2*x / cos(angle)
+                self.dct["height"] = 2*y / sin(angle)

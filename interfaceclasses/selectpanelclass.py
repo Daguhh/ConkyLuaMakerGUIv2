@@ -62,8 +62,9 @@ class SelectPanel:
     def _update_list(self):
 
         self.dropdown.kill()
+        liste = self.drawing_name_list[:15]# bug if list > interface height
         self.dropdown = pygame_gui.elements.UIDropDownMenu(
-            self.drawing_name_list,
+            liste,
             self.current_selection,
             SP_DROPDOWN_RECT,
             self.manager,
@@ -74,8 +75,9 @@ class SelectPanel:
 
         self.dropdown.kill()
         self.drawing_name_list = liste
+        liste = liste[:15] # bug if liste > interface height
         self.dropdown = pygame_gui.elements.UIDropDownMenu(
-            self.drawing_name_list,
+            liste,
             self.current_selection,
             SP_DROPDOWN_RECT,
             self.manager,

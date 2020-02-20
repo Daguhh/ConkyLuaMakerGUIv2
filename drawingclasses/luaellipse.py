@@ -24,7 +24,7 @@ class LuaEllipse(LuaGraph, LuaEllipses):
             "radius": 10,
             "height": 1,
             "width": 1,
-            "color": (255, 255, 255),
+            "color": (200, 200, 200),
             "alpha": 1,
             "thickness": 8,
             "start_angle": 360,

@@ -19,7 +19,7 @@ class LuaStaticText(LuaGraph, LuaTexts):
             "kind": "static_text",
             "from": (0, 0),
             "text": "default",
-            "color": (0, 0, 0),
+            "color": (200, 200, 200),
             "rotation_angle": 0,
             "font_size": 12,
             "font": "Comic Sans MS",

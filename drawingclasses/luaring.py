@@ -22,7 +22,7 @@ class LuaRing(LuaGraph, LuaRings):
             "kind": "ring",
             "center": (0, 0),
             "radius": 1,
-            "color": (255, 255, 255),
+            "color": (200, 200, 200),
             "alpha": 1,
             "thickness": 8,
             "start_angle": 360,
