@@ -19,8 +19,8 @@ Interface :
 
 Generated conky :
 
-<img src="https://github.com/Daguhh/ConkyLuaMakerGUIv2/blob/master/Example/example_1/conky_example_n1.png" width="330">
-
+<img src="https://raw.githubusercontent.com/Daguhh/ConkyLuaMakerGUIv2/master/Example/example_1/conky_example_n1.png" width="330">
+<img src="https://raw.githubusercontent.com/Daguhh/ConkyLuaMakerGUIv2/master/Example/example_1/conky_example_2001.png" width="330">
 
 ### How to run it ?
 It use python3 and you need to install few requirements :
