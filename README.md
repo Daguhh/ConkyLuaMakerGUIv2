@@ -13,8 +13,9 @@ This is a python interactive interface to create a Lua configuration file for (t
 4. easily (re)find your drawings : give them a name, use the dropdown menu or grab them with mouse
 
 ### Example
-![alt text](Example/Screenshot_2.png)
-
+![alt text](https://github.com/Daguhh/ConkyLuaMakerGUIv2/blob/master/Example/Interface_example.png)
+and conky generated :
+![alt text](https://github.com/Daguhh/ConkyLuaMakerGUIv2/blob/master/Example/example_1/conky_example_n1.png)
 
 ### How to run it ?
 It use python3 and you need to install few requirements :
