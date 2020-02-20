@@ -2,3 +2,4 @@ add a button to clone graph
 make a dynamically sizable interface
 add possibility to change defaùlt value
 try to blit only interface area that effectively changed
+make user-set alias for conky value
